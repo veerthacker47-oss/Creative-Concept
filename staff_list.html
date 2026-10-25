@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Staff accounts{% endblock %}
+{% block content %}
+<div class="actions" style="justify-content:space-between;margin-top:0">
+  <h1 style="margin:0">Staff accounts</h1>
+  <a class="btn" href="{{ url_for('staff.new') }}">+ Add staff</a>
+</div>
+<p class="muted">Roles control what each person can see and change. Administrators can do everything; the other roles are limited as shown on the <a href="{{ url_for('dashboard.index') }}">dashboard</a> menu.</p>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Last login</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for u in users %}
+    <tr>
+      <td><a href="{{ url_for('staff.edit', uid=u.id) }}">{{ u.full_name }}</a><br><span class="muted">{{ u.designation or '' }}</span></td>
+      <td>{{ u.username }}</td>
+      <td>{{ labels[u.role] }}</td>
+      <td>{{ u.last_login[:16] if u.last_login else 'never' }}</td>
+      <td><span class="badge {{ 'ok' if u.active else 'bad' }}">{{ 'active' if u.active else 'disabled' }}</span></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}

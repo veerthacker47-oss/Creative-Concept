@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h1>Reports &amp; exports</h1>
+<p class="muted">Files download as CSV, which opens in Google Sheets, Excel and most phone spreadsheet apps.</p>
+
+<div class="card">
+  <h2 style="margin-top:0">Payments (for accounts)</h2>
+  <form method="get" action="{{ url_for('reports.payments_csv') }}">
+    <div class="row three">
+      <div><label for="payments_start">From</label><input type="date" name="start" value="{{ today[:8] }}01" id="payments_start"></div>
+      <div><label for="payments_end">To</label><input type="date" name="end" value="{{ today }}" id="payments_end"></div>
+      <div class="actions" style="align-self:end"><button type="submit">Download payments CSV</button></div>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Attendance (date range)</h2>
+  <form method="get" action="{{ url_for('reports.attendance_csv') }}">
+    <div class="row three">
+      <div><label for="attendance_start">From</label><input type="date" name="start" value="{{ today[:8] }}01" id="attendance_start"></div>
+      <div><label for="attendance_end">To</label><input type="date" name="end" value="{{ today }}" id="attendance_end"></div>
+      <div class="actions" style="align-self:end"><button type="submit">Download attendance CSV</button></div>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Attendance by batch and month</h2>
+  <p><a href="{{ url_for('attendance.report') }}">Open the attendance report</a> and use Download CSV there.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Exam marks</h2>
+  <p><a href="{{ url_for('reports.marks_csv') }}">Download all marks (CSV)</a></p>
+  {% for e in exams %}
+    <div><a href="{{ url_for('exams.export_marks', eid=e.id) }}">{{ e.name }} · {{ e.batch_name }}</a></div>
+  {% else %}
+    <p class="muted">No exams yet.</p>
+  {% endfor %}
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Students and outstanding fees</h2>
+  <p><a href="{{ url_for('students.export_csv') }}">All students (CSV)</a></p>
+  <p><a href="{{ url_for('fees.export_csv') }}">Students with outstanding balances (CSV)</a></p>
+</div>
+{% endblock %}

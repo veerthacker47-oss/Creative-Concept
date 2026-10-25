@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Exams{% endblock %}
+{% block content %}
+<h1>Exams &amp; marks</h1>
+<div class="actions no-print">
+  <a class="btn secondary" href="{{ url_for('exams.report_cards') }}">Report cards</a>
+</div>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Exam</th><th>Subject</th><th>Batch</th><th>Date</th><th class="num">Max</th><th class="num">Pass</th><th class="num">Marks entered</th></tr></thead>
+  <tbody>
+  {% for e in exams %}
+    <tr>
+      <td><a href="{{ url_for('exams.detail', eid=e.id) }}">{{ e.name }}</a></td>
+      <td>{{ e.subject or '—' }}</td>
+      <td>{{ e.batch_name }}</td>
+      <td>{{ fmt_date(e.exam_date) }}{% if e.exam_date and e.exam_date >= today %} <span class="badge">upcoming</span>{% endif %}</td>
+      <td class="num">{{ '%g' % e.max_marks }}</td>
+      <td class="num">{{ '%g' % e.pass_marks if e.pass_marks is not none else 'default %' }}</td>
+      <td class="num">{{ e.entered }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7" class="muted">No exams yet. Create one below.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+
+{% if has_perm('academics.edit') %}
+<form method="post" action="{{ url_for('exams.create') }}" class="card">
+  <h2 style="margin-top:0">New exam</h2>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="row two">
+    <div><label for="name">Exam name *</label><input name="name" required maxlength="120" placeholder="Unit test 3" id="name"></div>
+    <div><label for="subject">Subject</label><input name="subject" maxlength="80" placeholder="Mathematics" id="subject"></div>
+  </div>
+  <div class="row two">
+    <div><label for="batch_id">Batch *</label><select name="batch_id" required id="batch_id">
+      {% for b in batches %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}</select></div>
+    <div><label for="exam_date">Exam date</label><input type="date" name="exam_date" id="exam_date"></div>
+  </div>
+  <div class="row two">
+    <div><label for="max_marks">Maximum marks *</label><input name="max_marks" inputmode="decimal" required placeholder="100" id="max_marks"></div>
+    <div><label for="pass_marks">Passing marks (blank = institute pass %)</label><input name="pass_marks" inputmode="decimal" placeholder="35" id="pass_marks"></div>
+  </div>
+  <div class="actions"><button type="submit">Create exam</button></div>
+</form>
+{% endif %}
+{% endblock %}

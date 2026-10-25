@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<p class="muted">Today: {{ fmt_date(stats.today) }} · updated <span id="updated">{{ stats.updated_at }}</span> · refreshes every 30 s</p>
+
+<div class="grid" id="stats" data-stats-url="{{ url_for('dashboard.api_stats') }}">
+  <div class="card stat"><div class="label">Total active students</div><div class="value" data-k="active_students">{{ stats.active_students }}</div></div>
+  <div class="card stat ok"><div class="label">Present today</div><div class="value" data-k="present_today">{{ stats.present_today }}</div></div>
+  <div class="card stat bad"><div class="label">Absent today</div><div class="value" data-k="absent_today">{{ stats.absent_today }}</div></div>
+  <div class="card stat"><div class="label">Attendance today</div><div class="value" data-k="attendance_pct_fmt">{{ '%.1f%%' % stats.attendance_pct_today if stats.attendance_pct_today is not none else '—' }}</div></div>
+  <div class="card stat ok"><div class="label">Fees collected this month</div><div class="value" data-k="collected_fmt">{{ fmt_money(stats.collected_this_month_paise) }}</div></div>
+  <div class="card stat warn"><div class="label">Outstanding fees</div><div class="value" data-k="outstanding_fmt">{{ fmt_money(stats.outstanding_paise) }}</div></div>
+  <div class="card stat"><div class="label">Upcoming exams</div><div class="value" data-k="upcoming_exams">{{ stats.upcoming_exams }}</div></div>
+  <div class="card stat bad"><div class="label">Students overdue</div><div class="value" data-k="overdue_students">{{ stats.overdue_students }}</div></div>
+  <div class="card stat"><div class="label">Messages waiting</div><div class="value" data-k="queued_notifications">{{ stats.queued_notifications }}</div></div>
+  <div class="card stat bad"><div class="label">Messages failed</div><div class="value" data-k="failed_notifications">{{ stats.failed_notifications }}</div></div>
+</div>
+
+<h2>Go to</h2>
+<div class="grid">
+  {% if has_perm('students.view') %}<a class="card tile" href="{{ url_for('students.index') }}"><strong>Students</strong><span class="muted">Records, guardians, CSV import</span></a>{% endif %}
+  {% if has_perm('academics.view') %}<a class="card tile" href="{{ url_for('academics.index') }}"><strong>Batches</strong><span class="muted">Batches, timetable, homework</span></a>{% endif %}
+  {% if has_perm('attendance.view') %}<a class="card tile" href="{{ url_for('attendance.index') }}"><strong>Attendance</strong><span class="muted">Mark and correct daily attendance</span></a>{% endif %}
+  {% if has_perm('fees.view') %}<a class="card tile" href="{{ url_for('fees.index') }}"><strong>Fees</strong><span class="muted">Payments, dues, receipts</span></a>{% endif %}
+  {% if has_perm('academics.view') %}<a class="card tile" href="{{ url_for('exams.index') }}"><strong>Exams &amp; marks</strong><span class="muted">Create exams, enter marks</span></a>{% endif %}
+  {% if has_perm('reports.view') %}<a class="card tile" href="{{ url_for('exams.report_cards') }}"><strong>Report cards</strong><span class="muted">Printable per student</span></a><a class="card tile" href="{{ url_for('exams.performance_analytics') }}"><strong>Performance analytics</strong><span class="muted">Spot progress and support needs</span></a>{% endif %}
+  {% if has_perm('staff.manage') %}<a class="card tile" href="{{ url_for('staff.index') }}"><strong>Staff</strong><span class="muted">Accounts and roles</span></a>{% endif %}
+  {% if has_perm('students.edit') %}<a class="card tile" href="{{ url_for('portal.accounts') }}"><strong>Student &amp; parent portal</strong><span class="muted">Create secure family logins</span></a>{% endif %}
+  {% if has_perm('comms.send') %}<a class="card tile" href="{{ url_for('comms.index') }}"><strong>Messages</strong><span class="muted">Queue, sent, failed, retry</span></a>{% endif %}
+  {% if has_perm('reports.view') %}<a class="card tile" href="{{ url_for('reports.index') }}"><strong>Reports</strong><span class="muted">CSV exports</span></a>{% endif %}
+  {% if has_perm('settings.manage') %}<a class="card tile" href="{{ url_for('admin.settings') }}"><strong>Settings</strong><span class="muted">Institute, pass marks, providers</span></a>{% endif %}
+</div>
+
+<h2>Quick actions</h2>
+<div class="actions">
+  {% if has_perm('attendance.mark') %}<a class="btn" href="{{ url_for('attendance.index') }}">Mark attendance</a>{% endif %}
+  {% if has_perm('fees.edit') %}<a class="btn" href="{{ url_for('fees.index') }}">Record a payment</a>{% endif %}
+  {% if has_perm('students.edit') %}<a class="btn secondary" href="{{ url_for('students.new') }}">Add student</a>{% endif %}
+  {% if has_perm('comms.send') %}<a class="btn secondary" href="{{ url_for('comms.broadcast') }}">Send announcement</a>{% endif %}
+</div>
+
+<div class="row two">
+  <div>
+    <h2>Recent announcements</h2>
+    <div class="card">
+      {% for a in stats.recent_announcements %}
+        <div>{{ a.title }} <span class="muted">· {{ a.created_at[:16] }}</span></div>
+      {% else %}
+        <p class="muted">No announcements yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div>
+    <h2>Recent activity</h2>
+    <div class="card">
+      {% if has_perm('audit.view') %}
+        {% for a in activity %}
+          <div>{{ a.action }}{% if a.full_name %} <span class="muted">by {{ a.full_name }}</span>{% endif %}
+            <br><span class="muted">{{ a.created_at[:16] }}{% if a.details %} · {{ a.details[:80] }}{% endif %}</span></div>
+        {% else %}
+          <p class="muted">No activity yet.</p>
+        {% endfor %}
+      {% else %}
+        <p class="muted">Activity is shown to administrators. Use Attendance and Fees for your day-to-day work.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}" defer></script>
+{% endblock %}

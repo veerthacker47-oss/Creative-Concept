@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Fees &amp; dues{% endblock %}
+{% block content %}
+<h1>Fees &amp; dues</h1>
+<div class="grid">
+  <div class="card stat warn"><div class="label">Total outstanding</div><div class="value">{{ fmt_money(total) }}</div></div>
+  <div class="card stat bad"><div class="label">Of which overdue</div><div class="value">{{ fmt_money(overdue_total) }}</div></div>
+  <div class="card stat ok"><div class="label">Collected in {{ month }}</div><div class="value">{{ fmt_money(collected) }}</div></div>
+</div>
+
+<form method="get" class="card no-print">
+  <div class="row two">
+    <div><label for="batch_id">Batch</label>
+      <select name="batch_id" id="batch_id"><option value="">All batches</option>
+        {% for b in batches %}<option value="{{ b.id }}" {{ 'selected' if batch_id == b.id }}>{{ b.name }}</option>{% endfor %}
+      </select></div>
+    <div class="actions" style="align-self:end"><button type="submit" class="secondary">Filter</button></div>
+  </div>
+</form>
+
+<div class="actions no-print">
+  {% if has_perm('fees.edit') %}
+  <form method="post" action="{{ url_for('fees.generate_monthly') }}" class="card" style="flex:1;margin:0">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Create tuition invoices for month</label>
+    <div class="actions" style="margin-top:0">
+      <input type="month" name="period" value="{{ month }}" style="width:auto">
+      <button type="submit">Generate</button>
+    </div>
+    <p class="muted">One invoice per student per month. Re-running is safe.</p>
+  </form>
+  {% endif %}
+  {% if has_perm('comms.send') %}
+  <form method="post" action="{{ url_for('fees.send_reminders') }}" class="card" style="flex:1;margin:0">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Overdue reminders</label>
+    <button type="submit" class="secondary">Send overdue reminders now</button>
+    <p class="muted">Each family gets at most one reminder per month per channel.</p>
+  </form>
+  {% endif %}
+  {% if has_perm('reports.view') %}<a class="btn secondary" href="{{ url_for('fees.export_csv') }}">Export CSV</a>{% endif %}
+</div>
+
+<div class="card table-wrap"><table>
+  <thead><tr><th>Student</th><th>Batch</th><th class="num">Balance</th><th>Oldest due</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td><a href="{{ url_for('fees.student', sid=r.id) }}">{{ r.first_name }} {{ r.last_name or '' }}</a><br>
+        <span class="muted">{{ r.admission_no }}</span></td>
+      <td>{{ r.batch_name or '—' }}</td>
+      <td class="num">{{ fmt_money(r.outstanding) }}
+        {% if r.has_overdue %}<br><span class="badge bad">overdue {{ fmt_money(r.overdue_amount) }}</span>{% endif %}</td>
+      <td>{{ fmt_date(r.oldest_due) }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4" class="muted">No outstanding balances. Well done.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}

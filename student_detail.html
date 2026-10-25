@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ student.first_name }}{% endblock %}
+{% block content %}
+<div class="actions" style="justify-content:space-between;margin-top:0">
+  <h1 style="margin:0">{{ student.first_name }} {{ student.last_name or '' }}</h1>
+  <span class="badge {{ 'ok' if student.status == 'active' else 'warn' }}">{{ student.status }}</span>
+</div>
+<p class="muted">{{ student.admission_no }} · {{ student.batch_name or 'No batch' }} · joined {{ fmt_date(student.joined_on) }}</p>
+
+<div class="grid">
+  <div class="card stat"><div class="label">Attendance (all days)</div>
+    <div class="value">{% if att.total %}{{ (100 * (att.attended or 0) / att.total)|round(1) }}%{% else %}—{% endif %}</div>
+    <div class="muted">{{ att.absent or 0 }} absent of {{ att.total or 0 }}</div></div>
+  <div class="card stat {{ 'bad' if ledger.outstanding > 0 else 'ok' }}"><div class="label">Balance due</div>
+    <div class="value">{{ fmt_money(ledger.outstanding) }}</div></div>
+  <div class="card stat"><div class="label">Total paid</div><div class="value">{{ fmt_money(ledger.total_paid) }}</div></div>
+</div>
+
+<div class="actions">
+  {% if has_perm('students.edit') %}<a class="btn" href="{{ url_for('students.edit', sid=student.id) }}">Edit</a>{% endif %}
+  {% if has_perm('fees.view') %}<a class="btn secondary" href="{{ url_for('fees.student', sid=student.id) }}">Fees &amp; payments</a>{% endif %}
+  {% if has_perm('reports.view') %}<a class="btn secondary" href="{{ url_for('exams.report_card', sid=student.id) }}">Report card</a>{% endif %}
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Parent / guardian</h2>
+  <p>{{ student.parent_name }}<br>
+    {{ student.parent_phone or 'No phone' }} · {{ student.parent_email or 'No email' }}</p>
+  <p class="muted">Contact details: {{ student.phone or '—' }} · {{ student.email or '—' }}</p>
+  <p class="muted">{{ student.address or '' }}</p>
+</div>
+
+{% if has_perm('students.edit') %}
+<form method="post" action="{{ url_for('students.set_status', sid=student.id) }}" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Change status</label>
+  <div class="actions" style="margin-top:0">
+    <select name="status" style="width:auto">
+      {% for s in ['active','inactive','left'] %}<option value="{{ s }}" {{ 'selected' if student.status == s }}>{{ s|capitalize }}</option>{% endfor %}
+    </select>
+    <button class="secondary" type="submit">Update</button>
+  </div>
+  <p class="muted">Students are deactivated rather than deleted, so fee and attendance history is kept.</p>
+</form>
+{% endif %}
+
+<h2>Recent attendance</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Date</th><th>Status</th></tr></thead>
+  <tbody>{% for a in recent_att %}<tr><td>{{ fmt_date(a.att_date) }}</td>
+    <td><span class="badge {{ 'bad' if a.status == 'absent' else ('warn' if a.status == 'late' else 'ok') }}">{{ a.status }}</span></td></tr>
+  {% else %}<tr><td colspan="2" class="muted">No attendance recorded.</td></tr>{% endfor %}</tbody>
+</table></div>
+
+<h2>Recent marks</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Exam</th><th>Date</th><th class="num">Marks</th></tr></thead>
+  <tbody>{% for m in marks %}<tr><td>{{ m.name }}</td><td>{{ fmt_date(m.exam_date) }}</td>
+    <td class="num">{{ 'AB' if m.absent else ('%g / %g' % (m.marks, m.max_marks)) }}</td></tr>
+  {% else %}<tr><td colspan="3" class="muted">No marks yet.</td></tr>{% endfor %}</tbody>
+</table></div>
+
+<h2>Messages to parent</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>When</th><th>Channel</th><th>Status</th><th>Message</th></tr></thead>
+  <tbody>{% for n in notes %}<tr><td>{{ n.created_at[:16] }}</td><td>{{ n.channel }}</td>
+    <td><span class="badge {{ 'ok' if n.status == 'sent' else ('bad' if n.status == 'failed' else 'warn') }}">{{ n.status }}</span></td>
+    <td>{{ n.body[:120] }}</td></tr>
+  {% else %}<tr><td colspan="4" class="muted">No messages sent to this family.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

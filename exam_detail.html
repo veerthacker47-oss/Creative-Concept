@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ exam.name }}{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">EXAMS &amp; ASSESSMENT</div><h1>{{ exam.name }}</h1><p class="muted">{{ exam.subject or 'General subject' }} · {{ exam.batch_name }} · {{ fmt_date(exam.exam_date) }} · Maximum {{ '%g' % exam.max_marks }} marks · Pass mark {{ '%g' % threshold }}</p></div><a class="btn secondary" href="{{ url_for('exams.index') }}">← All exams</a></div>
+{% if analytics %}
+<div class="grid analytics-grid">
+  <div class="card stat"><div class="label">Class average</div><div class="value">{{ analytics.average }} <span class="muted">/ {{ '%g' % exam.max_marks }}</span></div><div class="progress-track"><span style="width:{{ [analytics.average_pct, 100]|min }}%"></span></div></div>
+  <div class="card stat"><div class="label">Highest score</div><div class="value">{{ '%g' % analytics.highest }}</div><div class="muted">Lowest: {{ '%g' % analytics.lowest }}</div></div>
+  <div class="card stat {{ 'ok' if analytics.pass_rate >= 75 else 'warn' }}"><div class="label">Pass rate</div><div class="value">{{ analytics.pass_rate }}%</div><div class="muted">{{ analytics.count }} scored · {{ analytics.absent }} absent</div><div class="progress-track"><span style="width:{{ analytics.pass_rate }}%"></span></div></div>
+</div>
+<div class="row two"><section class="card"><div class="eyebrow">CLASS ANALYTICS</div><h2>Grade distribution</h2>{% for grade, n in analytics.distribution %}<div class="distribution-row"><strong>{{ grade }}</strong><div class="bar"><span style="width:{{ (100 * n / analytics.count)|round(0) }}%"></span></div><span class="muted">{{ n }}</span></div>{% endfor %}</section><section class="card"><div class="eyebrow">TOP PERFORMANCE</div><h2>Top scorers</h2><ol class="top-scorers">{% for name, mk in analytics.top %}<li><span>{{ name }}</span><strong>{{ '%g' % mk }} <small>/ {{ '%g' % exam.max_marks }}</small></strong></li>{% endfor %}</ol></section></div>
+{% endif %}
+<section class="card marks-card">
+  <div class="section-heading"><div><div class="eyebrow">MARKS ENTRY</div><h2>Student marks register</h2><p class="muted">Save one student at a time, or save the whole class. Blank fields are skipped; use Clear to remove a saved mark.</p></div><a class="btn secondary no-print" href="{{ url_for('exams.export_marks', eid=exam.id) }}">Export CSV</a></div>
+  <div class="marks-toolbar no-print"><label class="search-box"><span>⌕</span><input id="studentSearch" type="search" placeholder="Search student or admission no." aria-label="Search student"></label><div class="marks-progress"><strong id="enteredCount">0</strong><span class="muted">of {{ students|length }} entered</span></div></div>
+  <form method="post" id="marksForm">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="table-wrap"><table class="marks-table"><thead><tr><th>Student</th><th>Marks / {{ '%g' % exam.max_marks }}</th><th>Status</th><th>Remarks</th><th class="no-print">Action</th></tr></thead><tbody id="studentRows">
+    {% for s in students %}
+      {% set m = marks.get(s.id) %}
+      <tr data-student="{{ (s.first_name ~ ' ' ~ (s.last_name or '') ~ ' ' ~ s.admission_no)|lower }}" data-entered="{{ '1' if m else '0' }}">
+        <td><strong>{{ s.first_name }} {{ s.last_name or '' }}</strong><br><span class="muted">{{ s.admission_no }}</span></td>
+        <td><input class="mark-input" aria-label="Marks for {{ s.first_name }} {{ s.last_name or '' }}" name="m_{{ s.id }}" value="{{ 'AB' if m and m.absent else ('%g' % m.marks if m and m.marks is not none else '') }}" inputmode="decimal" placeholder="—" {{ 'disabled' if not can_edit }}></td>
+        <td class="result-cell" data-student-id="{{ s.id }}">{% if m and m.absent %}<span class="badge warn">Absent</span>{% elif m and m.marks is not none %}<span class="badge {{ 'ok' if m.marks >= threshold else 'bad' }}">{{ 'Pass' if m.marks >= threshold else 'Review' }}</span>{% else %}<span class="badge">Not entered</span>{% endif %}</td>
+        <td><input class="remarks-input" aria-label="Remarks for {{ s.first_name }} {{ s.last_name or '' }}" name="r_{{ s.id }}" value="{{ m.remarks if m and m.remarks else '' }}" placeholder="Optional" {{ 'disabled' if not can_edit }}></td>
+        <td class="no-print marks-actions">{% if can_edit %}<button class="small" type="submit" name="save_student" value="{{ s.id }}">Save</button>{% if m %}<button class="small secondary" type="submit" name="clear_student" value="{{ s.id }}" formnovalidate data-confirm="Clear the saved mark for {{ s.first_name }}?">Clear</button>{% endif %}{% else %}<span class="muted">View only</span>{% endif %}</td>
+      </tr>
+    {% else %}<tr><td colspan="5" class="muted empty-state">No active students are assigned to this batch. Add or activate students first.</td></tr>{% endfor %}
+    </tbody></table></div>
+    {% if can_edit %}<div class="marks-footer no-print"><div class="muted">Tip: use <strong>AB</strong> for absent students. Values above {{ '%g' % exam.max_marks }} are rejected.</div><button type="submit" class="wide">Save all entered marks</button></div>{% endif %}
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='exam_detail.js') }}" defer></script>{% endblock %}

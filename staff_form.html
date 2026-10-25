@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Add staff' if mode == 'new' else 'Edit staff' }}{% endblock %}
+{% block content %}
+<h1>{{ 'Add staff account' if mode == 'new' else member.full_name }}</h1>
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="row two">
+    <div><label for="full_name">Full name *</label><input name="full_name" value="{{ member.full_name or '' }}" required id="full_name"></div>
+    <div><label for="username">Username *</label><input name="username" value="{{ member.username or '' }}" {{ 'readonly' if mode == 'edit' }} required autocomplete="off" id="username"></div>
+  </div>
+  <div class="row three">
+    <div><label for="role">Role</label>
+      <select name="role" id="role">{% for key, label in labels.items() %}<option value="{{ key }}" {{ 'selected' if member.role == key }}>{{ label }}</option>{% endfor %}</select></div>
+    <div><label for="designation">Designation</label><input name="designation" value="{{ member.designation or '' }}" id="designation"></div>
+    <div><label for="phone">Phone</label><input name="phone" value="{{ member.phone or '' }}" inputmode="tel" id="phone"></div>
+  </div>
+  {% if mode == 'edit' %}
+  <label for="active">Account status</label>
+  <select name="active" style="max-width:240px" id="active">
+    <option value="1" {{ 'selected' if member.active }}>Active</option>
+    <option value="0" {{ 'selected' if not member.active }}>Disabled (cannot sign in)</option>
+  </select>
+  {% else %}
+  <div class="row two">
+    <div><label for="password">Temporary password (min 10)</label><input name="password" type="password" minlength="10" required autocomplete="new-password" id="password"></div>
+    <div><label for="confirm">Confirm password</label><input name="confirm" type="password" minlength="10" required autocomplete="new-password" id="confirm"></div>
+  </div>
+  {% endif %}
+  <div class="actions"><button type="submit">Save</button><a class="btn secondary" href="{{ url_for('staff.index') }}">Back</a></div>
+</form>
+
+{% if mode == 'edit' %}
+<form method="post" action="{{ url_for('staff.reset_password', uid=member.id) }}" class="card">
+  <h2 style="margin-top:0">Reset password</h2>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="row two">
+    <div><label for="reset_password">New password (min 10)</label><input name="password" type="password" minlength="10" required autocomplete="new-password" id="reset_password"></div>
+    <div><label for="reset_confirm">Confirm</label><input name="confirm" type="password" minlength="10" required autocomplete="new-password" id="reset_confirm"></div>
+  </div>
+  <div class="actions"><button class="secondary" type="submit">Reset password</button></div>
+</form>
+{% endif %}
+{% endblock %}

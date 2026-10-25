@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Send announcement{% endblock %}
+{% block content %}
+<h1>Send announcement</h1>
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="title">Title *</label>
+  <input name="title" required maxlength="120" placeholder="Holiday on Monday" id="title">
+  <label for="body">Message *</label>
+  <textarea name="body" required maxlength="1000" placeholder="Classes are off this Monday. Regular timings from Tuesday." id="body"></textarea>
+  <div class="row two">
+    <div><label for="aud">Audience</label>
+      <select name="audience" id="aud">
+        <option value="all">All active students' parents</option>
+        <option value="batch">One batch</option>
+      </select></div>
+    <div><label for="batch_id">Batch (if one batch)</label>
+      <select name="batch_id" id="batch_id">
+        <option value="">—</option>
+        {% for b in batches %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}
+      </select></div>
+  </div>
+  <label>Send to parents via</label>
+  <div class="actions" style="margin-top:4px">
+    {% for c in channels %}
+      <label style="margin:0;color:var(--text)"><input type="checkbox" name="channels" value="{{ c }}" style="width:auto" {{ 'checked' if c == 'email' }}> {{ c|capitalize }}</label>
+    {% endfor %}
+  </div>
+  <p class="muted">Each parent gets the message once per channel, even if you submit twice. Messages go out only where the provider is configured on the server; the history page shows what was actually delivered.</p>
+  <div class="actions"><button type="submit">Post announcement</button>
+    <a class="btn secondary" href="{{ url_for('comms.index') }}">Cancel</a></div>
+</form>
+{% endblock %}

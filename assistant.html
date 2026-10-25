@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Assistant{% endblock %}
+{% block content %}
+<h1>Assistant</h1>
+<p class="muted">{{ 'AI answers are enabled for general questions.' if ai_enabled else 'Built-in commands only. Type "help" to see them.' }} The assistant only reads data; it never changes records.</p>
+
+<div class="chat" style="margin-bottom:14px">
+  {% for turn in history %}
+    <div class="bubble q">{{ turn.q }}</div>
+    <div class="bubble a">{{ turn.a }}</div>
+  {% else %}
+    <div class="bubble a">Hello. Try <strong>summary</strong>, <strong>who is absent today</strong>, <strong>outstanding fees</strong>, or <strong>find Ravi</strong>.</div>
+  {% endfor %}
+</div>
+
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="question">Ask</label>
+  <textarea name="question" maxlength="500" placeholder="e.g. outstanding fees" required id="question"></textarea>
+  <div class="actions"><button type="submit">Send</button>
+    <button type="submit" formaction="{{ url_for('assistant.clear') }}" formnovalidate class="secondary">Clear chat</button></div>
+</form>
+{% endblock %}

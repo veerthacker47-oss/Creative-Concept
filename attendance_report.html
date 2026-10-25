@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Attendance report{% endblock %}
+{% block content %}
+<h1>Attendance report</h1>
+<form method="get" class="card">
+  <div class="row three">
+    <div><label for="batch_id">Batch</label>
+      <select name="batch_id" id="batch_id"><option value="">Choose…</option>
+        {% for b in batches %}<option value="{{ b.id }}" {{ 'selected' if b.id == batch_id }}>{{ b.name }}</option>{% endfor %}
+      </select></div>
+    <div><label for="month">Month</label><input type="month" name="month" value="{{ month[:7] }}" id="month"></div>
+    <div><label for="date">Daily view (optional)</label><input type="date" name="date" value="{{ day or '' }}" id="date"></div>
+  </div>
+  <div class="actions"><button type="submit">Show</button></div>
+</form>
+{% if batch_id %}
+<div class="actions"><a class="btn secondary" href="?batch_id={{ batch_id }}&month={{ month[:7] }}&format=csv">Download monthly CSV</a></div>
+
+{% if day %}
+<h2>Daily register: {{ fmt_date(day) }}</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Student</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for r in daily %}
+    <tr><td>{{ r.first_name }} {{ r.last_name or '' }} <span class="muted">{{ r.admission_no }}</span></td>
+      <td><span class="badge {{ 'bad' if r.status == 'absent' else ('warn' if r.status == 'late' else ('ok' if r.status else '')) }}">{{ r.status|capitalize if r.status else 'Not marked' }}</span></td></tr>
+  {% else %}<tr><td colspan="2" class="muted">No active students.</td></tr>{% endfor %}
+  </tbody>
+</table></div>
+{% endif %}
+
+<h2>Monthly summary</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Student</th><th class="num">Days marked</th><th class="num">Attended</th><th class="num">Absent</th><th class="num">%</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    {% set pct = (100 * (r.attended or 0) / r.days) if r.days else none %}
+    <tr>
+      <td>{{ r.first_name }} {{ r.last_name or '' }}</td>
+      <td class="num">{{ r.days }}</td>
+      <td class="num">{{ r.attended or 0 }}</td>
+      <td class="num">{{ r.absent or 0 }}</td>
+      <td class="num"><span class="badge {{ 'bad' if pct is not none and pct < 75 else 'ok' }}">{{ '%.1f' % pct if pct is not none else '—' }}</span></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="muted">No active students in this batch.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="muted">Percentages turn red below 75% attendance.</p>
+{% endif %}
+{% endblock %}

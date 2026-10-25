@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h1>Messages &amp; history</h1>
+<div class="grid">
+  <div class="card stat ok"><div class="label">Sent</div><div class="value">{{ totals.get('sent', 0) }}</div></div>
+  <div class="card stat warn"><div class="label">Waiting / queued</div><div class="value">{{ totals.get('queued', 0) }}</div></div>
+  <div class="card stat bad"><div class="label">Failed</div><div class="value">{{ totals.get('failed', 0) }}</div></div>
+</div>
+<p class="muted">A message counts as <strong>sent</strong> only when the email or SMS provider accepts it. "Waiting" means the provider is not set up on the server yet, or delivery is being retried.</p>
+
+<div class="actions no-print">
+  {% if has_perm('comms.send') %}
+  <a class="btn" href="{{ url_for('comms.broadcast') }}">New announcement</a>
+  <form method="post" action="{{ url_for('comms.retry') }}" class="inline">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="secondary" type="submit">Retry waiting &amp; failed now</button>
+  </form>
+  {% endif %}
+</div>
+
+<form method="get" class="card no-print">
+  <div class="row three">
+    <div><label for="status">Status</label><select name="status" id="status"><option value="">All</option>
+      {% for s in ['queued','sent','failed'] %}<option value="{{ s }}" {{ 'selected' if status == s }}>{{ s }}</option>{% endfor %}</select></div>
+    <div><label for="channel">Channel</label><select name="channel" id="channel"><option value="">All</option>
+      {% for c in channels %}<option value="{{ c }}" {{ 'selected' if channel == c }}>{{ c }}</option>{% endfor %}</select></div>
+    <div class="actions" style="align-self:end"><button type="submit" class="secondary">Filter</button></div>
+  </div>
+</form>
+
+<h2>Announcements</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>When</th><th>Title</th><th>Audience</th><th>Channels</th><th class="num">Families</th></tr></thead>
+  <tbody>{% for a in announcements %}<tr>
+    <td>{{ a.created_at[:16] }}</td><td>{{ a.title }}</td><td>{{ a.batch_name or 'All students' }}</td>
+    <td>{{ a.channels or 'in-app only' }}</td><td class="num">{{ a.recipients }}</td></tr>
+  {% else %}<tr><td colspan="5" class="muted">No announcements yet.</td></tr>{% endfor %}</tbody>
+</table></div>
+
+<h2>Message history (latest {{ history|length }})</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>When</th><th>Student</th><th>Channel</th><th>Status</th><th>Detail</th></tr></thead>
+  <tbody>
+  {% for n in history %}
+    <tr>
+      <td>{{ n.created_at[:16] }}</td>
+      <td>{% if n.first_name %}{{ n.first_name }} {{ n.last_name or '' }}<br><span class="muted">{{ n.admission_no }}</span>{% else %}—{% endif %}</td>
+      <td>{{ n.channel }}<br><span class="muted">{{ n.kind }}</span></td>
+      <td><span class="badge {{ 'ok' if n.status == 'sent' else ('bad' if n.status == 'failed' else 'warn') }}">{{ n.status }}</span>
+        {% if n.sent_at %}<br><span class="muted">{{ n.sent_at[:16] }}</span>{% endif %}</td>
+      <td>{{ n.body[:140] }}{% if n.error %}<br><span class="muted">{{ n.error }}</span>{% endif %}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="muted">No messages yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}

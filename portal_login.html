@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Student &amp; parent sign in{% endblock %}
+{% block content %}
+<section class="portal-login-shell">
+  <div class="portal-login-brand">
+    <div class="eyebrow">FAMILY PORTAL</div>
+    <h1>Your learning, all in one place.</h1>
+    <p>Check attendance, exam results, fee balances, homework and your batch timetable from any device.</p>
+    <div class="portal-feature-list"><span>✓ Secure individual access</span><span>✓ Always available on mobile</span><span>✓ Clear academic updates</span></div>
+  </div>
+  <div class="card portal-login-card">
+    <div class="portal-mark">✦</div><h2>Welcome back</h2><p class="muted">Sign in with the account provided by your institute.</p>
+    <form method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label for="username">Portal username</label><input id="username" name="username" autocomplete="username" required autofocus>
+      <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+      <div class="actions"><button type="submit" class="wide">Sign in to portal</button></div>
+    </form>
+    <p class="muted">Need access? Contact your coaching institute administrator.</p>
+    <a href="{{ url_for('auth.login') }}" class="staff-login-link">Staff login →</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}{{ batch.name }}{% endblock %}
+{% block content %}
+<h1>{{ batch.name }}</h1>
+<p class="muted">{{ batch.subject or 'No subject' }} · Teacher: {{ batch.teacher_name or 'not assigned' }} ·
+  Monthly fee {{ fmt_money(batch.monthly_fee_paise) if batch.monthly_fee_paise else 'not set' }}</p>
+
+<h2>Students ({{ students|length }})</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Name</th><th>Adm. no</th><th>Status</th></tr></thead>
+  <tbody>{% for s in students %}<tr>
+    <td><a href="{{ url_for('students.detail', sid=s.id) }}">{{ s.first_name }} {{ s.last_name or '' }}</a></td>
+    <td>{{ s.admission_no }}</td><td>{{ s.status }}</td></tr>
+  {% else %}<tr><td colspan="3" class="muted">No students in this batch.</td></tr>{% endfor %}</tbody>
+</table></div>
+
+<h2>Weekly timetable</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Day</th><th>Time</th><th>Subject</th><th>Room</th>{% if has_perm('academics.edit') %}<th></th>{% endif %}</tr></thead>
+  <tbody>{% for t in timetable %}<tr>
+    <td>{{ weekdays[t.weekday] }}</td><td>{{ t.start_time }}–{{ t.end_time }}</td><td>{{ t.subject }}</td><td>{{ t.room or '—' }}</td>
+    {% if has_perm('academics.edit') %}<td>
+      <form method="post" action="{{ url_for('academics.delete_timetable', bid=batch.id, tid=t.id) }}" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="danger small" type="submit">Remove</button></form></td>{% endif %}
+  </tr>{% else %}<tr><td colspan="5" class="muted">No classes scheduled.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% if has_perm('academics.edit') %}
+<form method="post" action="{{ url_for('academics.add_timetable', bid=batch.id) }}" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="row three">
+    <div><label for="weekday">Day</label><select name="weekday" id="weekday">{% for d in weekdays %}<option value="{{ loop.index0 }}">{{ d }}</option>{% endfor %}</select></div>
+    <div><label for="start_time">Start (HH:MM)</label><input name="start_time" placeholder="09:00" required id="start_time"></div>
+    <div><label for="end_time">End (HH:MM)</label><input name="end_time" placeholder="10:00" required id="end_time"></div>
+  </div>
+  <div class="row two">
+    <div><label for="timetable_subject">Subject</label><input name="subject" required id="timetable_subject"></div>
+    <div><label for="room">Room</label><input name="room" id="room"></div>
+  </div>
+  <div class="actions"><button type="submit">Add class</button></div>
+</form>
+{% endif %}
+
+<h2>Homework</h2>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Title</th><th>Due</th><th>Details</th>{% if has_perm('academics.edit') %}<th></th>{% endif %}</tr></thead>
+  <tbody>{% for h in homework %}<tr>
+    <td>{{ h.title }}</td><td>{{ fmt_date(h.due_date) }}</td><td>{{ h.details or '' }}</td>
+    {% if has_perm('academics.edit') %}<td>
+      <form method="post" action="{{ url_for('academics.delete_homework', hid=h.id) }}" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="danger small" type="submit">Delete</button></form></td>{% endif %}
+  </tr>{% else %}<tr><td colspan="4" class="muted">No homework posted.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% if has_perm('academics.edit') %}
+<form method="post" action="{{ url_for('academics.add_homework', bid=batch.id) }}" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="row two">
+    <div><label for="title">Title *</label><input name="title" required id="title"></div>
+    <div><label for="due_date">Due date</label><input name="due_date" placeholder="YYYY-MM-DD" id="due_date"></div>
+  </div>
+  <label for="details">Details</label><textarea name="details" id="details"></textarea>
+  <div class="actions"><button type="submit">Post homework</button></div>
+</form>
+{% endif %}
+
+{% if has_perm('batches.manage') %}
+<h2>Edit batch</h2>
+<form method="post" action="{{ url_for('academics.edit', bid=batch.id) }}" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="row three">
+    <div><label for="name">Name</label><input name="name" value="{{ batch.name }}" required id="name"></div>
+    <div><label for="batch_subject">Subject</label><input name="subject" value="{{ batch.subject or '' }}" id="batch_subject"></div>
+    <div><label for="teacher_id">Teacher</label>
+      <select name="teacher_id" id="teacher_id"><option value="">Not assigned</option>
+        {% for t in teachers %}<option value="{{ t.id }}" {{ 'selected' if batch.teacher_id == t.id }}>{{ t.full_name }}</option>{% endfor %}</select></div>
+  </div>
+  <div class="row three">
+    <div><label for="capacity">Capacity</label><input name="capacity" value="{{ batch.capacity }}" id="capacity"></div>
+    <div><label for="monthly_fee">Monthly fee (₹)</label><input name="monthly_fee" value="{{ '%.2f' % (batch.monthly_fee_paise / 100) if batch.monthly_fee_paise else '' }}" id="monthly_fee"></div>
+    <div><label for="active">Active</label><select name="active" id="active"><option value="1" {{ 'selected' if batch.active }}>Yes</option><option value="0" {{ 'selected' if not batch.active }}>No</option></select></div>
+  </div>
+  <div class="actions"><button type="submit">Save batch</button></div>
+</form>
+{% endif %}
+{% endblock %}

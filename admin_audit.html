@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Audit log{% endblock %}
+{% block content %}
+<h1>Audit log</h1>
+<p class="muted">Every change, sign-in, payment and export is recorded here. Entries cannot be edited from the app.</p>
+<form method="get" class="card no-print">
+  <div class="row two">
+    <div><label for="action">Filter by action</label><input name="action" value="{{ action }}" placeholder="payment, attendance, login…" id="action"></div>
+    <div class="actions" style="align-self:end"><button type="submit" class="secondary">Filter</button></div>
+  </div>
+</form>
+<div class="card table-wrap"><table>
+  <thead><tr><th>When (UTC)</th><th>User</th><th>Action</th><th>Entity</th><th>Details</th><th>IP</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r.created_at[:16] }}</td>
+      <td>{{ r.username or '—' }}</td>
+      <td>{{ r.action }}</td>
+      <td>{{ r.entity or '' }} {{ r.entity_id or '' }}</td>
+      <td>{{ r.details or '' }}</td>
+      <td>{{ r.ip or '' }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="6" class="muted">No entries.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}

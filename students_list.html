@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Students{% endblock %}
+{% block content %}
+<div class="actions" style="justify-content:space-between;align-items:center;margin-top:0">
+  <h1 style="margin:0">Students <span class="muted">({{ total }})</span></h1>
+  {% if has_perm('students.edit') %}<a class="btn" href="{{ url_for('students.new') }}">+ Add student</a>{% endif %}
+</div>
+<form method="get" class="card">
+  <div class="row two">
+    <div><label for="q">Search</label><input name="q" value="{{ q }}" placeholder="Name, admission no, parent, phone" id="q"></div>
+    <div><label for="batch_id">Batch</label>
+      <select name="batch_id" id="batch_id"><option value="">All batches</option>
+        {% for b in batches %}<option value="{{ b.id }}" {{ 'selected' if batch_id|string == b.id|string }}>{{ b.name }}</option>{% endfor %}
+      </select></div>
+  </div>
+  <div class="row two">
+    <div><label for="status">Status</label>
+      <select name="status" id="status"><option value="">Any</option>
+        {% for s in statuses %}<option value="{{ s }}" {{ 'selected' if status == s }}>{{ s|capitalize }}</option>{% endfor %}
+      </select></div>
+    <div class="actions" style="align-self:end"><button type="submit">Filter</button>
+      <a class="btn secondary" href="{{ url_for('students.index') }}">Clear</a></div>
+  </div>
+</form>
+
+<div class="card table-wrap">
+<table>
+  <thead><tr><th>Name</th><th>Adm. no</th><th>Batch</th><th>Parent</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for s in students %}
+    <tr>
+      <td><a href="{{ url_for('students.detail', sid=s.id) }}">{{ s.first_name }} {{ s.last_name or '' }}</a></td>
+      <td>{{ s.admission_no }}</td>
+      <td>{{ s.batch_name or '—' }}</td>
+      <td>{{ s.parent_name }}<br><span class="muted">{{ s.parent_phone or s.parent_email or '' }}</span></td>
+      <td><span class="badge {{ 'ok' if s.status == 'active' else 'warn' }}">{{ s.status }}</span></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="muted">No students match these filters.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<div class="actions">
+  {% if page > 1 %}<a class="btn secondary small" href="?q={{ q }}&status={{ status }}&batch_id={{ batch_id }}&page={{ page - 1 }}">← Previous</a>{% endif %}
+  <span class="muted">Page {{ page }} of {{ pages }}</span>
+  {% if page < pages %}<a class="btn secondary small" href="?q={{ q }}&status={{ status }}&batch_id={{ batch_id }}&page={{ page + 1 }}">Next →</a>{% endif %}
+</div>
+{% if has_perm('import.run') %}<p><a href="{{ url_for('students.import_csv') }}">Import from CSV</a></p>{% endif %}
+{% if has_perm('reports.view') %}<p><a href="{{ url_for('students.export_csv') }}">Export all students (CSV)</a></p>{% endif %}
+{% endblock %}

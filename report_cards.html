@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Report cards{% endblock %}
+{% block content %}
+<h1>Report cards</h1>
+<form method="get" class="card no-print">
+  <div class="row two">
+    <div><label for="batch_id">Batch</label><select name="batch_id" data-autosubmit id="batch_id"><option value="">Choose a batch…</option>
+      {% for b in batches %}<option value="{{ b.id }}" {{ 'selected' if b.id == batch_id }}>{{ b.name }}</option>{% endfor %}</select></div>
+    <div class="actions" style="align-self:end"><button class="secondary" type="submit">Show students</button></div>
+  </div>
+</form>
+{% if batch_id %}
+<div class="card table-wrap"><table>
+  <thead><tr><th>Student</th><th class="num">Exams with marks</th><th></th></tr></thead>
+  <tbody>
+  {% for s in students %}
+    <tr>
+      <td>{{ s.first_name }} {{ s.last_name or '' }}<br><span class="muted">{{ s.admission_no }}</span></td>
+      <td class="num">{{ s.exams_with_marks }}</td>
+      <td><a class="btn small" href="{{ url_for('exams.report_card', sid=s.id) }}">Open report card</a></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="3" class="muted">No active students in this batch.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endif %}
+{% endblock %}

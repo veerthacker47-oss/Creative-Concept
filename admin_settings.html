@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<h1>Settings</h1>
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <h2 style="margin-top:0">Institute</h2>
+  <div class="row two">
+    <div><label for="institute_name">{{ fields.institute_name }}</label><input name="institute_name" value="{{ values.institute_name }}" required id="institute_name"></div>
+    <div><label for="institute_phone">{{ fields.institute_phone }}</label><input name="institute_phone" value="{{ values.institute_phone }}" id="institute_phone"></div>
+  </div>
+  <label for="institute_address">{{ fields.institute_address }}</label><textarea name="institute_address" id="institute_address">{{ values.institute_address }}</textarea>
+  <label for="institute_email">{{ fields.institute_email }}</label><input name="institute_email" type="email" value="{{ values.institute_email }}" maxlength="254" id="institute_email">
+
+  <h2>Legal and privacy contact details</h2>
+  <p class="muted">Use the institute's real details. These values appear in the public policy pages; they cannot be guessed by the software.</p>
+  <label for="legal_business_name">{{ fields.legal_business_name }}</label><input name="legal_business_name" value="{{ values.legal_business_name }}" maxlength="254" id="legal_business_name">
+  <div class="row two">
+    <div><label for="privacy_contact_email">{{ fields.privacy_contact_email }}</label><input name="privacy_contact_email" type="email" value="{{ values.privacy_contact_email }}" maxlength="254" id="privacy_contact_email"></div>
+    <div><label for="privacy_contact_phone">{{ fields.privacy_contact_phone }}</label><input name="privacy_contact_phone" value="{{ values.privacy_contact_phone }}" maxlength="254" id="privacy_contact_phone"></div>
+  </div>
+  <label for="grievance_contact">{{ fields.grievance_contact }}</label><textarea name="grievance_contact" maxlength="4000" id="grievance_contact">{{ values.grievance_contact }}</textarea>
+  <label for="data_retention_policy">{{ fields.data_retention_policy }}</label><textarea name="data_retention_policy" maxlength="4000" placeholder="Describe how long each record type is kept and when it is deleted" id="data_retention_policy">{{ values.data_retention_policy }}</textarea>
+  <label for="refund_policy_terms">{{ fields.refund_policy_terms }}</label><textarea name="refund_policy_terms" maxlength="4000" placeholder="Enter the institute's actual refund/cancellation terms, timelines and exceptions" id="refund_policy_terms">{{ values.refund_policy_terms }}</textarea>
+
+  <h2>Academics &amp; fees</h2>
+  <div class="row three">
+    <div><label for="pass_percentage">{{ fields.pass_percentage }}</label><input name="pass_percentage" value="{{ values.pass_percentage }}" inputmode="decimal" id="pass_percentage"></div>
+    <div><label for="fee_due_day">{{ fields.fee_due_day }}</label><input name="fee_due_day" value="{{ values.fee_due_day }}" inputmode="numeric" id="fee_due_day"></div>
+  </div>
+
+  <h2>Parent notifications</h2>
+  <label for="notify_channels">{{ fields.notify_channels }}</label>
+  <input name="notify_channels" value="{{ values.notify_channels }}" id="notify_channels">
+  <p class="muted">Absence alerts, fee reminders and announcements use these channels, if the parent has a matching phone or email.</p>
+  <div class="actions"><button type="submit">Save settings</button></div>
+</form>
+
+<div class="card">
+  <h2 style="margin-top:0">Notification providers on this server</h2>
+  <p>Provider secrets are kept in environment variables or encrypted server-side storage and are never shown back in the interface.</p>
+  <ul>
+    <li>Email (SMTP): {{ '<span class="badge ok">configured</span>' | safe if providers.email else '<span class="badge warn">not configured</span>' | safe }}</li>
+    <li>SMS (Twilio): {{ '<span class="badge ok">configured</span>' | safe if providers.sms else '<span class="badge warn">not configured</span>' | safe }}</li>
+    <li>WhatsApp (Twilio): {{ '<span class="badge ok">configured</span>' | safe if providers.whatsapp else '<span class="badge warn">not configured</span>' | safe }}</li>
+    <li>AI assistant (Anthropic): {{ '<span class="badge ok">configured</span>' | safe if providers.ai else '<span class="badge warn">built-in commands only</span>' | safe }}</li>
+  </ul>
+  <p class="muted">Until a provider is configured, its messages stay in the queue and are never marked as sent.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Email configuration</h2>
+  <p class="muted">Only an administrator with Settings permission can change these values. The SMTP password is encrypted before being saved and is never displayed back. Use an email account owned or authorised by the institute.</p>
+  {% if email_encryption_ready %}
+  <form method="post" action="{{ url_for('admin.email_settings') }}" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="smtp_host">SMTP provider</label>
+    <select id="smtp_host" name="smtp_host" required>
+      <option value="smtp.gmail.com" {{ 'selected' if email_values.host == 'smtp.gmail.com' }}>Gmail</option>
+      <option value="smtp-relay.brevo.com" {{ 'selected' if email_values.host == 'smtp-relay.brevo.com' }}>Brevo</option>
+      <option value="smtp.office365.com" {{ 'selected' if email_values.host == 'smtp.office365.com' }}>Microsoft 365</option>
+    </select>
+    <label for="smtp_port">SMTP port</label>
+    <select id="smtp_port" name="smtp_port" required>
+      <option value="587" {{ 'selected' if email_values.port|string == '587' }}>587 — STARTTLS</option>
+      <option value="465" {{ 'selected' if email_values.port|string == '465' }}>465 — SSL/TLS</option>
+    </select>
+    <label for="smtp_user">Sender login email</label>
+    <input id="smtp_user" name="smtp_user" type="email" value="{{ email_values.user }}" autocomplete="off" required maxlength="254">
+    <label for="smtp_from">From email address</label>
+    <input id="smtp_from" name="smtp_from" type="email" value="{{ email_values.sender }}" autocomplete="off" required maxlength="254">
+    <label for="smtp_password">SMTP App Password</label>
+    <input id="smtp_password" name="smtp_password" type="password" autocomplete="new-password" maxlength="1024" placeholder="{{ 'Saved securely — leave blank to keep current password' if email_values.has_password else 'Enter App Password' }}">
+    <p class="muted">For Gmail, use a Google App Password—not the normal account password. Supported hosts are restricted to reduce server-side request abuse.</p>
+    <div class="actions"><button type="submit">Save email settings</button></div>
+  </form>
+  <hr>
+  <form method="post" action="{{ url_for('admin.test_email_settings') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="test_recipient">Send test email to</label>
+    <input id="test_recipient" name="recipient" type="email" autocomplete="email" maxlength="254" required placeholder="Your own email address">
+    <div class="actions"><button type="submit" class="secondary">Send test email</button></div>
+  </form>
+  {% else %}
+  <p class="badge warn">Website email configuration disabled</p>
+  <p>Set <code>EMAIL_SETTINGS_ENCRYPTION_KEY</code> in the private hosting environment before using this form. Do not store the SMTP password without encryption.</p>
+  {% endif %}
+  <h3>SMS / WhatsApp</h3>
+  <p>These channels still require Twilio credentials in the private hosting environment and provider testing. Never enter Twilio secrets into a public form.</p>
+</div>
+{% endblock %}

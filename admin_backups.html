@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Backups{% endblock %}
+{% block content %}
+<h1>Database backups</h1>
+<div class="card">
+  <p>A backup is taken automatically every night at 02:00 (Asia/Kolkata) and checked for integrity. The newest {{ keep }} are kept on the server.</p>
+  <p class="muted">Folder on the server: <code>{{ folder }}</code></p>
+  <p><strong>Important:</strong> a backup stored only on the same server does not protect against losing that server. Download a copy regularly and keep it somewhere else (for example Google Drive or a USB drive).</p>
+  <form method="post" action="{{ url_for('admin.backup_now') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit">Create backup now</button>
+  </form>
+</div>
+<div class="card table-wrap"><table>
+  <thead><tr><th>File</th><th class="num">Size</th><th></th></tr></thead>
+  <tbody>
+  {% for f in files %}
+    <tr><td>{{ f.name }}</td><td class="num">{{ f.kb }} KB</td>
+      <td><a class="btn secondary small" href="{{ url_for('admin.backup_download', name=f.name) }}">Download</a></td></tr>
+  {% else %}
+    <tr><td colspan="3" class="muted">No backups yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+<article class="card legal-page">
+  <p class="eyebrow">POLICY · Last updated {{ page.updated }}</p>
+  <h1>{{ page.title }}</h1>
+  <p class="flash error"><strong>Review before launch:</strong> Confirm these details match the institute's real practices and obtain appropriate legal review. Any notice that says information is not configured is a launch blocker, not a completed compliance step.</p>
+  {% for heading, body in page.sections %}
+    <section aria-labelledby="section-{{ loop.index }}">
+      <h2 id="section-{{ loop.index }}">{{ heading }}</h2>
+      <p>{{ body }}</p>
+    </section>
+  {% endfor %}
+</article>
+{% endblock %}

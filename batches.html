@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Batches{% endblock %}
+{% block content %}
+<h1>Batches &amp; classes</h1>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Batch</th><th>Subject</th><th>Teacher</th><th class="num">Students</th><th class="num">Monthly fee</th></tr></thead>
+  <tbody>
+  {% for b in batches %}
+    <tr>
+      <td><a href="{{ url_for('academics.detail', bid=b.id) }}">{{ b.name }}</a>
+        {% if not b.active %}<span class="badge warn">inactive</span>{% endif %}</td>
+      <td>{{ b.subject or '—' }}</td>
+      <td>{{ b.teacher_name or '—' }}</td>
+      <td class="num">{{ b.strength }} / {{ b.capacity }}</td>
+      <td class="num">{{ fmt_money(b.monthly_fee_paise) if b.monthly_fee_paise else '—' }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="muted">No batches yet. Create one below.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+
+{% if has_perm('batches.manage') %}
+<div class="card">
+  <h2 style="margin-top:0">New batch</h2>
+  <form method="post" action="{{ url_for('academics.create') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="row three">
+      <div><label for="name">Name *</label><input name="name" required placeholder="Class 10 - Morning" id="name"></div>
+      <div><label for="subject">Subject</label><input name="subject" placeholder="Maths" id="subject"></div>
+      <div><label for="teacher_id">Teacher</label>
+        <select name="teacher_id" id="teacher_id"><option value="">Not assigned</option>
+          {% for t in teachers %}<option value="{{ t.id }}">{{ t.full_name }}</option>{% endfor %}</select></div>
+    </div>
+    <div class="row three">
+      <div><label for="capacity">Capacity</label><input name="capacity" value="40" inputmode="numeric" id="capacity"></div>
+      <div><label for="monthly_fee">Monthly fee (₹)</label><input name="monthly_fee" placeholder="2500" id="monthly_fee"></div>
+      <div><label for="active">Active</label><select name="active" id="active"><option value="1">Yes</option><option value="0">No</option></select></div>
+    </div>
+    <div class="actions"><button type="submit">Create batch</button></div>
+  </form>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Import students{% endblock %}
+{% block content %}
+<h1>Import students from CSV</h1>
+<div class="card">
+  <p>Use a spreadsheet, then <strong>File → Save as → CSV</strong>. Column headers (any order; extra columns are ignored):</p>
+  <p class="muted"><code>first_name, last_name, gender, dob, phone, email, address, parent_name, parent_phone, parent_email, batch_name, joined_on, status, admission_no</code></p>
+  <p class="muted">Only <code>first_name</code> and <code>parent_name</code> are required, plus a parent phone or email. Leave <code>admission_no</code> blank to auto-generate. Rows with problems are skipped and listed below; a full file can be checked first with "Preview only".</p>
+  <form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="student_csv">CSV file (max 5 MB)</label>
+    <input id="student_csv" type="file" name="file" accept=".csv,text/csv" required>
+    <label><input type="checkbox" name="preview" value="1" style="width:auto"> Preview only (do not save)</label>
+    <label for="privacy_notice_acknowledged"><input id="privacy_notice_acknowledged" type="checkbox" name="privacy_notice_acknowledged" value="1"> I confirm the privacy notice has been provided and any required consent/lawful basis is handled for the records being imported.</label>
+    <p class="muted">Preview does not save data. A real import records this staff acknowledgement, but it does not replace required parent/guardian consent evidence.</p>
+    <div class="actions"><button type="submit">Import</button></div>
+  </form>
+</div>
+
+{% if result %}
+<div class="card">
+  <h2 style="margin-top:0">{{ 'Preview' if result.preview else 'Result' }}</h2>
+  <p><strong>{{ result.created|length }}</strong> row(s) {{ 'would be' if result.preview else '' }} {{ 'valid' if result.preview else 'imported' }}.
+     <strong>{{ result.skipped|length }}</strong> row(s) skipped.</p>
+  {% if result.skipped %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>CSV line</th><th>Problem</th></tr></thead>
+    <tbody>{% for line, msg in result.skipped %}<tr><td>{{ line }}</td><td>{{ msg }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

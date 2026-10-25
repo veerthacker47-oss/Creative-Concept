@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Attendance{% endblock %}
+{% block content %}
+<h1>Attendance</h1>
+<form method="get" class="card no-print">
+  <div class="row three">
+    <div><label for="batch_id">Batch</label>
+      <select name="batch_id" data-autosubmit id="batch_id">
+        {% for b in batches %}<option value="{{ b.id }}" {{ 'selected' if b.id == batch_id }}>{{ b.name }}</option>{% endfor %}
+      </select></div>
+    <div><label for="date">Date</label><input type="date" name="date" value="{{ day }}" data-autosubmit id="date"></div>
+    <div class="actions" style="align-self:end"><button class="secondary" type="submit">Show</button></div>
+  </div>
+</form>
+
+{% if not batch %}
+  <div class="card"><p class="muted">No batch yet. Create a batch and add students to start marking attendance.</p></div>
+{% elif not students %}
+  <div class="card"><p class="muted">No active students in {{ batch.name }}.</p></div>
+{% else %}
+<div class="grid no-print">
+  <div class="card stat ok"><div class="label">Present</div><div class="value">{{ counts.present }}</div></div>
+  <div class="card stat bad"><div class="label">Absent</div><div class="value">{{ counts.absent }}</div></div>
+  <div class="card stat warn"><div class="label">Late</div><div class="value">{{ counts.late }}</div></div>
+  <div class="card stat"><div class="label">Not marked</div><div class="value">{{ students|length - marks|length }}</div></div>
+</div>
+
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="batch_id" value="{{ batch_id }}">
+  <input type="hidden" name="date" value="{{ day }}">
+  <p class="muted">Marking <strong>{{ batch.name }}</strong> for {{ fmt_date(day) }}.
+    {% if not can_mark %}You can view this register but not change it.{% endif %}</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Student</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for s in students %}
+      {% set cur = marks.get(s.id) %}
+      <tr>
+        <td>{{ s.first_name }} {{ s.last_name or '' }}<br><span class="muted">{{ s.admission_no }}</span></td>
+        <td>
+          {% if can_mark %}
+          <select name="status_{{ s.id }}" style="width:auto">
+            <option value="">— not marked —</option>
+            {% for st in statuses %}<option value="{{ st }}" {{ 'selected' if cur == st }}>{{ st|capitalize }}</option>{% endfor %}
+          </select>
+          {% else %}
+            <span class="badge {{ 'bad' if cur == 'absent' else ('warn' if cur == 'late' else ('ok' if cur else '')) }}">{{ cur|capitalize if cur else 'Not marked' }}</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% if can_mark %}
+  <input type="hidden" name="notify_form" value="1">
+  <label style="display:flex;align-items:center;gap:6px;color:var(--text)">
+    <input type="checkbox" name="notify_absent" value="1" checked style="width:auto"> Send absence alerts to parents for students marked absent
+  </label>
+  <p class="muted">Each parent gets at most one absence alert per child per day, per channel. Alerts are only marked sent once the provider accepts them.</p>
+  <div class="actions">
+    <button type="submit" name="action" value="save">Save attendance</button>
+    <button type="submit" name="action" value="mark_all_present" class="secondary"
+            data-confirm="Mark EVERY student in this batch present, including students already marked?">Mark all present</button>
+    <button type="submit" name="action" value="all_present" class="secondary">Mark unmarked present</button>
+  </div>
+  {% endif %}
+</form>
+{% endif %}
+{% endblock %}

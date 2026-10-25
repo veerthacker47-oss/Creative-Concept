@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Student &amp; parent portal accounts{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">FAMILY ACCESS</div><h1>Student &amp; parent portal</h1><p class="muted">Create read-only accounts for families. Each account can see records for its linked student only.</p></div><a class="btn secondary" href="{{ url_for('portal.login') }}" target="_blank" rel="noopener">Preview portal ↗</a></div>
+<div class="row two portal-admin-layout">
+  <form method="post" class="card form-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="eyebrow">NEW ACCOUNT</div><h2>Create portal login</h2>
+    <label for="student_id">Student *</label><select id="student_id" name="student_id" required><option value="">Choose a student</option>{% for s in students %}<option value="{{ s.id }}">{{ s.first_name }} {{ s.last_name or '' }} · {{ s.admission_no }}</option>{% endfor %}</select>
+    <label for="account_type">Account type *</label><select id="account_type" name="account_type"><option value="parent">Parent / guardian</option><option value="student">Student</option></select>
+    <label for="username">Username *</label><input id="username" name="username" required minlength="3" maxlength="80" autocomplete="off" placeholder="e.g. ADM2026-0012-parent">
+    <label for="password">Temporary password *</label><input id="password" name="password" type="password" required minlength="10" autocomplete="new-password">
+    <label for="confirm">Confirm password *</label><input id="confirm" name="confirm" type="password" required minlength="10" autocomplete="new-password">
+    <p class="muted">Use a unique password and share login details privately. Passwords are stored as secure hashes.</p>
+    <button type="submit" class="wide">Create account</button>
+  </form>
+  <section class="card">
+    <div class="eyebrow">ACCOUNT DIRECTORY</div><h2>Existing logins</h2>
+    <div class="table-wrap"><table><thead><tr><th>Student</th><th>Login</th><th>Status</th><th></th></tr></thead><tbody>
+    {% for a in accounts %}<tr><td><strong>{{ a.first_name }} {{ a.last_name or '' }}</strong><br><span class="muted">{{ a.admission_no }}</span></td><td>{{ a.username }}<br><span class="muted">{{ a.account_type|capitalize }}</span></td><td><span class="badge {{ 'ok' if a.active else 'bad' }}">{{ 'Active' if a.active else 'Disabled' }}</span></td><td><form method="post" action="{{ url_for('portal.toggle_account', aid=a.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="small {{ 'danger' if a.active else 'secondary' }}" type="submit">{{ 'Disable' if a.active else 'Enable' }}</button></form></td></tr>
+    {% else %}<tr><td colspan="4" class="muted">No portal accounts yet. Create the first one here.</td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+</div>
+{% endblock %}

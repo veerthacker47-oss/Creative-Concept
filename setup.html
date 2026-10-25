@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}First-time setup{% endblock %}
+{% block content %}
+<div class="card" style="max-width:460px;margin:24px auto">
+  <h1>First-time setup</h1>
+  <p class="muted">Create the administrator account. This page closes permanently once an account exists.</p>
+  <form method="post" autocomplete="on">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {% if token_required %}
+    <label for="setup_token">One-time deployment setup token</label>
+    <input id="setup_token" name="setup_token" type="password" required autocomplete="off">
+    <p class="muted">Ask the deployment administrator for the token shown in the hosting environment settings. This is required only for first setup.</p>
+    {% endif %}
+    <label for="full_name">Full name</label>
+    <input id="full_name" name="full_name" required>
+    <label for="username">Username</label>
+    <input id="username" name="username" required autocomplete="username">
+    <label for="password">Password (at least 10 characters)</label>
+    <input id="password" name="password" type="password" minlength="10" required autocomplete="new-password">
+    <label for="confirm">Confirm password</label>
+    <input id="confirm" name="confirm" type="password" minlength="10" required autocomplete="new-password">
+    <div class="actions"><button type="submit">Create administrator</button></div>
+  </form>
+</div>
+{% endblock %}

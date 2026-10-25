@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<div class="card" style="max-width:420px;margin:24px auto">
+  <h1>Sign in</h1>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="username">Username</label>
+    <input id="username" name="username" autocomplete="username" required autofocus>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+    <div class="actions"><button type="submit">Sign in</button></div>
+  </form>
+  <p class="muted">Accounts are created by the administrator. Forgotten password? Ask the administrator to reset it.</p>
+  <p><a class="btn secondary wide" href="{{ url_for('portal.login') }}">Student / parent portal →</a></p>
+</div>
+{% endblock %}

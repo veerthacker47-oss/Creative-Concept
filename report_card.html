@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Report card · {{ student.first_name }}{% endblock %}
+{% block content %}
+<div class="actions no-print">
+  <button type="button" data-print>Print / save as PDF</button>
+  <a class="btn secondary" href="{{ url_for('students.detail', sid=student.id) }}">Back to student</a>
+</div>
+<div class="card">
+  <h1>{{ institute_name }}</h1>
+  <h2 style="margin-top:0">Progress report</h2>
+  <p><strong>{{ student.first_name }} {{ student.last_name or '' }}</strong> · {{ student.admission_no }} · {{ student.batch_name or '—' }}<br>
+     <span class="muted">Parent: {{ student.parent_name }}</span></p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Exam</th><th>Subject</th><th>Date</th><th class="num">Marks</th><th class="num">%</th><th>Grade</th><th>Result</th><th class="num">Rank</th><th>Remarks</th></tr></thead>
+    <tbody>
+    {% for r in report %}
+      <tr>
+        <td>{{ r.name }}</td>
+        <td>{{ r.subject or '—' }}</td>
+        <td>{{ fmt_date(r.exam_date) }}</td>
+        <td class="num">{{ 'AB' if r.absent or r.marks is none else ('%g / %g' % (r.marks, r.max_marks)) }}</td>
+        <td class="num">{{ '%.1f' % r.percent if r.percent is not none else '—' }}</td>
+        <td>{{ r.grade }}</td>
+        <td>{{ r.status }}</td>
+        <td class="num">{{ ('%d of %d' % (r.rank, r.outof)) if r.rank else '—' }}</td>
+        <td>{{ r.remarks or '' }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="9" class="muted">No marks recorded for this student yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% if subject_rows %}
+  <h2>Subject-wise</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Subject</th><th class="num">Exams</th><th class="num">Marks</th><th class="num">%</th></tr></thead>
+    <tbody>{% for s in subject_rows %}<tr><td>{{ s.subject }}</td><td class="num">{{ s.exams }}</td>
+      <td class="num">{{ '%g / %g' % (s.marks, s.max) }}</td><td class="num">{{ '%.1f' % s.percent if s.percent is not none else '—' }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+  {% if overall is not none %}
+  <p style="margin-top:14px"><strong>Overall:</strong> {{ '%.1f' % overall }}% · Grade {{ overall_grade }}
+     · {{ 'Passed' if overall >= pass_pct else 'Needs improvement' }} (overall pass mark {{ '%g' % pass_pct }}%)</p>
+  {% endif %}
+  <p class="muted">Grades: A+ ≥90, A ≥80, B ≥70, C ≥60, D ≥50, E ≥35, F below 35. Rank is among students who appeared in that exam. Result uses each exam's passing marks.</p>
+</div>
+{% endblock %}

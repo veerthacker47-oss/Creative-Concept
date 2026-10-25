@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Receipt {{ p.receipt_no }}{% endblock %}
+{% block content %}
+<div class="actions no-print">
+  <button type="button" data-print>Print / save as PDF</button>
+  <a class="btn secondary" href="{{ url_for('fees.student', sid=p.student_id) }}">Back to ledger</a>
+</div>
+<div class="receipt card">
+  <h2>{{ institute_name }}</h2>
+  <div class="center muted">Fee receipt</div>
+  <hr>
+  <p><strong>Receipt no:</strong> {{ p.receipt_no }}<br>
+     <strong>Date:</strong> {{ fmt_date(p.paid_on) }}<br>
+     <strong>Student:</strong> {{ p.first_name }} {{ p.last_name or '' }} ({{ p.admission_no }})<br>
+     <strong>Batch:</strong> {{ p.batch_name or '—' }}<br>
+     <strong>Parent:</strong> {{ p.parent_name }}</p>
+  <table>
+    <tr><th>Amount received</th><td class="num"><strong>{{ fmt_money(p.amount_paise) }}</strong></td></tr>
+    <tr><th>Method</th><td class="num">{{ p.method }}{% if p.reference %} ({{ p.reference }}){% endif %}</td></tr>
+    <tr><th>Total billed</th><td class="num">{{ fmt_money(ledger.total_due) }}</td></tr>
+    <tr><th>Total paid to date</th><td class="num">{{ fmt_money(ledger.total_paid) }}</td></tr>
+    <tr><th>Balance</th><td class="num">{{ fmt_money(ledger.outstanding) }}</td></tr>
+  </table>
+  <p class="muted" style="margin-top:14px">Received by {{ p.recorded_by_name or 'office' }}. This receipt is computer generated.</p>
+</div>
+{% endblock %}
