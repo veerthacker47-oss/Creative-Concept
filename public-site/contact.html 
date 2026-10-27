@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Creative Concepts Classes</title>
+<style>
+:root{--navy:#172b4d;--ink:#222b38;--muted:#667085;--cream:#faf8f3;--line:#e8e3da}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:inherit}
+header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line)}
+.brand{font-weight:800;color:var(--navy);text-decoration:none;font-size:18px}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{font-size:14px;text-decoration:none;color:var(--muted)}
+main{max-width:1000px;margin:auto;padding:65px 6%}
+.eyebrow{color:#b96c37;text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800}
+h1{font-size:clamp(36px,7vw,60px);line-height:1.1;letter-spacing:-2px;color:var(--navy);margin:12px 0 18px}
+h2{color:var(--navy);line-height:1.3}
+.intro{max-width:650px;color:var(--muted);font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:35px}
+.card{background:white;border:1px solid var(--line);border-radius:18px;padding:25px;overflow-wrap:anywhere}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#b96c37;font-weight:800}
+.detail{color:var(--muted)}
+.button{display:inline-block;margin-top:10px;background:var(--navy);color:white;text-decoration:none;padding:12px 17px;border-radius:9px;font-weight:700}
+footer{padding:25px 6%;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media(max-width:600px){header{align-items:flex-start;flex-direction:column}nav{gap:13px}main{padding-top:42px}}
+</style>
+</head>
+<body>
+<header>
+<a class="brand" href="index.html">Creative Concepts Classes</a>
+<nav aria-label="Main navigation">
+<a href="index.html">Home</a>
+<a href="programs.html">Programs</a>
+<a href="admissions.html">Admissions</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<main>
+<div class="eyebrow">Get in touch</div>
+<h1>Let’s connect.</h1>
+<p class="intro">Have a question about classes or admissions? Contact Creative Concepts Classes by Bindi Thacker using the details below.</p>
+
+<section class="grid">
+<article class="card">
+<div class="label">Visit us</div>
+<h2>Institute address</h2>
+<p class="detail">5-B, above Dabeli, opposite Viram Hotel, Banker’s Colony, Bhuj, Gujarat 370001.</p>
+<a class="button" href="https://www.google.com/maps/search/?api=1&query=Creative+Concepts+Classes+Bankers+Colony+Bhuj" target="_blank" rel="noopener noreferrer">Open in Maps ↗</a>
+</article>
+
+<article class="card">
+<div class="label">Call</div>
+<h2>Phone</h2>
+<p class="detail">Contact the institute by phone for enquiries.</p>
+<a class="button" href="tel:+919825553378">Call the institute</a>
+<p class="detail">Number currently listed: +91 98255 53378. Please verify before publishing.</p>
+</article>
+
+<article class="card">
+<div class="label">Follow</div>
+<h2>Instagram</h2>
+<p class="detail">Find Creative Concepts Classes on Instagram.</p>
+<a class="button" href="https://www.instagram.com/creativeconceptbhuj/" target="_blank" rel="noopener noreferrer">Visit Instagram ↗</a>
+</article>
+
+<article class="card">
+<div class="label">Admissions</div>
+<h2>Send an enquiry</h2>
+<p class="detail">Use the admission enquiry form to get started.</p>
+<a class="button" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener noreferrer">Admission form ↗</a>
+</article>
+</section>
+</main>
+
+<footer>
+Creative Concepts Classes by Bindi Thacker · Bhuj, Gujarat
+</footer>
+</body>
+</html>
