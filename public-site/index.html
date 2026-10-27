@@ -1,190 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="Creative Concept coaching institute. Contact us for admissions, classes and fee enquiries.">
-  <title>Creative Concept | Coaching Institute</title>
-  <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: #f5f7ff;
-      line-height: 1.7;
-    }
-    a { color: inherit; }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding: 20px 7%;
-      background: #111a30;
-      border-bottom: 1px solid #263653;
-    }
-    .brand {
-      font-size: 23px;
-      font-weight: 800;
-      color: #65d9ff;
-      text-decoration: none;
-    }
-    nav { display: flex; gap: 18px; flex-wrap: wrap; }
-    nav a { text-decoration: none; font-size: 14px; }
-    nav a:hover { color: #65d9ff; }
-    .hero {
-      padding: 90px 8% 80px;
-      background: radial-gradient(ellipse at top right, #173b65, #0b1020 65%);
-    }
-    .tag {
-      color: #65d9ff;
-      font-weight: bold;
-      letter-spacing: 2px;
-      font-size: 12px;
-    }
-    h1 {
-      max-width: 750px;
-      font-size: clamp(38px, 7vw, 68px);
-      line-height: 1.12;
-      margin: 18px 0;
-    }
-    .hero p { max-width: 620px; color: #c4cee0; }
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 22px;
-      border-radius: 8px;
-      background: #65d9ff;
-      color: #08101d;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    section.content { padding: 55px 8%; }
-    h2 { font-size: clamp(27px, 4vw, 38px); }
-    .muted { color: #c4cee0; }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      margin-top: 25px;
-    }
-    .card {
-      padding: 23px;
-      background: #131e34;
-      border: 1px solid #2b3b59;
-      border-radius: 14px;
-    }
-    .card h3 { color: #65d9ff; }
-    .contact {
-      background: #111a30;
-      border-top: 1px solid #263653;
-    }
-    .phone {
-      color: #65d9ff;
-      font-size: 23px;
-      font-weight: bold;
-    }
-    footer {
-      padding: 25px 8%;
-      text-align: center;
-      color: #9eacc4;
-      font-size: 13px;
-    }
-    .skip {
-      position: absolute;
-      left: -9999px;
-    }
-    .skip:focus { left: 10px; top: 10px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#172b4d">
+<meta name="description" content="Creative Concepts Classes by Bindi Thacker in Bhuj, Gujarat. Explore school learning, Science, board and entrance exam preparation programs.">
+<title>Creative Concepts Classes | Learn Beyond Limits</title>
+<style>
+:root{--navy:#172b4d;--ink:#222b38;--muted:#687386;--cream:#faf8f3;--orange:#ef9c63;--line:#e8e3da;--white:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:inherit}
+header{position:sticky;top:0;z-index:10;background:rgba(250,248,243,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:15px 6%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy);font-weight:800;font-size:16px;line-height:1.25}
+.mark{width:42px;height:42px;border-radius:50%;background:var(--navy);color:white;display:grid;place-items:center;font-size:15px;letter-spacing:1px;flex-shrink:0}
+nav{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+nav a{font-size:13px;text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--navy)}
+nav .nav-cta{background:var(--navy);color:white;padding:10px 14px;border-radius:8px}
+section{scroll-margin-top:85px}
+.container{max-width:1180px;margin:auto;padding-left:6%;padding-right:6%}
+.hero{padding-top:78px;padding-bottom:80px;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:50px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#b66b37}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(42px,6.6vw,76px);line-height:1.02;letter-spacing:-3px;color:var(--navy);margin:17px 0 22px}
+h1 span{color:#c77c48}
+.hero-copy{font-size:18px;max-width:610px;color:var(--muted)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.button{display:inline-block;text-decoration:none;font-size:14px;font-weight:700;padding:14px 19px;border-radius:9px;border:1px solid var(--navy);transition:transform .2s}
+.button:hover{transform:translateY(-2px)}
+.primary{background:var(--navy);color:white}
+.secondary{color:var(--navy)}
+.hero-art{min-height:360px;border-radius:28px;background:#eae6dc;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:30px}
+.orbit{width:250px;height:250px;border:1px solid #c8c1b4;border-radius:50%;position:absolute}
+.orbit.two{width:320px;height:320px}
+.orbit.three{width:390px;height:390px}
+.core{position:relative;z-index:1;width:170px;height:170px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;text-align:center;font-size:24px;font-weight:800;line-height:1.2;box-shadow:0 20px 50px #172b4d30}
+.float{position:absolute;z-index:2;padding:12px 15px;background:white;border-radius:12px;box-shadow:0 8px 25px #172b4d12;font-size:12px;font-weight:800;color:var(--navy)}
+.f1{top:35px;left:22px}.f2{right:18px;top:110px}.f3{bottom:35px;left:35px}.f4{bottom:55px;right:22px}
+.strip{background:var(--navy);color:white}
+.strip-inner{padding-top:25px;padding-bottom:25px;display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.strip strong{font-size:14px}.strip span{color:#c8d0de;font-size:12px}
+.section{padding-top:85px;padding-bottom:85px}
+.section-head{max-width:650px;margin-bottom:35px}
+h2{font-size:clamp(30px,4vw,46px);line-height:1.12;letter-spacing:-1.5px;color:var(--navy);margin-bottom:15px}
+.lead{color:var(--muted);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.card{padding:25px;background:white;border:1px solid var(--line);border-radius:17px;min-width:0}
+.card-no{font-size:12px;letter-spacing:1px;font-weight:800;color:#b66b37}
+.card h3{font-size:20px;line-height:1.3;color:var(--navy);margin:13px 0 10px}
+.card p{font-size:14px;color:var(--muted);margin-bottom:0}
+.text-link{display:inline-block;margin-top:18px;color:var(--navy);font-size:13px;font-weight:800;text-decoration:none}
+.approach{background:#f0ece3}
+.approach-grid{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
+.quote{font-size:clamp(24px,3.5vw,39px);line-height:1.25;color:var(--navy);letter-spacing:-1px}
+.features{display:grid;gap:13px}
+.feature{display:flex;gap:14px;padding:17px;background:#fff;border:1px solid var(--line);border-radius:13px}
+.dot{width:10px;height:10px;margin-top:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.feature h3{font-size:16px;margin:0 0 4px;color:var(--navy)}
+.feature p{font-size:13px;color:var(--muted);margin:0}
+.cta{padding-top:65px;padding-bottom:65px}
+.cta-box{background:var(--navy);color:white;border-radius:24px;padding:clamp(28px,5vw,55px);display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.cta-box h2{color:white;max-width:600px;margin-bottom:12px}
+.cta-box p{color:#d5dbea;margin:0;max-width:600px}
+.cta-box .button{background:white;color:var(--navy);border-color:white;white-space:nowrap}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.contact-item{padding:20px 0;border-bottom:1px solid var(--line)}
+.contact-item strong{display:block;color:var(--navy);margin-bottom:5px}
+.contact-item p{color:var(--muted);margin:0;font-size:14px;overflow-wrap:anywhere}
+.contact-item a{color:var(--navy);font-weight:700}
+footer{border-top:1px solid var(--line);padding:25px 6%;color:var(--muted);font-size:12px}
+.footer-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:55px;gap:35px}.hero-art{min-height:310px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.approach-grid{grid-template-columns:1fr;gap:25px}}
+@media(max-width:560px){.nav{align-items:flex-start;flex-direction:column;gap:13px}nav{gap:14px}nav a{font-size:12px}.hero{padding-top:42px;padding-bottom:50px}h1{letter-spacing:-2px}.hero-art{min-height:275px;padding:20px}.core{width:130px;height:130px;font-size:21px}.orbit{width:190px;height:190px}.orbit.two{width:245px;height:245px}.orbit.three{width:300px;height:300px}.f1{top:18px;left:10px}.f2{right:8px;top:75px}.f3{bottom:20px;left:10px}.f4{bottom:30px;right:8px}.float{font-size:10px;padding:9px}.grid{grid-template-columns:1fr}.section{padding-top:60px;padding-bottom:60px}.contact-grid{grid-template-columns:1fr}.strip-inner{gap:12px}.strip-inner>div{min-width:40%}}
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
 
-  <header>
-    <a class="brand" href="#main">Creative Concept</a>
-    <nav aria-label="Main navigation">
-      <a href="#programmes">Programmes</a>
-      <a href="#admissions">Admissions</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header>
+<div class="nav">
+<a class="brand" href="index.html">
+<span class="mark">CC</span>
+<span>CREATIVE CONCEPTS<br>CLASSES</span>
+</a>
+<nav aria-label="Main navigation">
+<a href="#programs">Programs</a>
+<a href="#approach">Our approach</a>
+<a href="#contact">Contact</a>
+<a class="nav-cta" href="admissions.html">Enquire now ↗</a>
+</nav>
+</div>
+</header>
 
-  <main id="main">
-    <div class="hero">
-      <div class="tag">LEARN • PRACTISE • PROGRESS</div>
-      <h1>Build strong foundations for your future.</h1>
-      <p>
-        Take the next step in your learning journey.
-        Contact Creative Concept to learn about classes,
-        available batches and admission details.
-      </p>
-      <a class="button" href="#contact">Enquire Now →</a>
-    </div>
+<main>
+<section class="hero container">
+<div>
+<div class="eyebrow">Creative Concepts Classes · Bhuj</div>
+<h1>Think beyond.<br><span>Learn creatively.</span></h1>
+<p class="hero-copy">A creative, psychological and amazing approach to not just studies, but towards life too.</p>
+<div class="actions">
+<a class="button primary" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener noreferrer">Explore admissions ↗</a>
+<a class="button secondary" href="#programs">Discover our programs ↓</a>
+</div>
+</div>
+<div class="hero-art" aria-label="Creative learning illustration">
+<div class="orbit"></div><div class="orbit two"></div><div class="orbit three"></div>
+<div class="core">STRIVE<br>FOR<br>EXCELLENCE</div>
+<div class="float f1">Curiosity</div>
+<div class="float f2">Concepts</div>
+<div class="float f3">Confidence</div>
+<div class="float f4">Growth</div>
+</div>
+</section>
 
-    <section class="content" id="programmes">
-      <div class="tag">OUR APPROACH</div>
-      <h2>Learning that moves you forward.</h2>
-      <p class="muted">
-        Contact the institute to confirm the subjects,
-        classes and learning support currently available.
-      </p>
-      <div class="cards">
-        <article class="card">
-          <h3>Subject Learning</h3>
-          <p class="muted">
-            Ask about the subjects, grades and boards offered.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Practice & Revision</h3>
-          <p class="muted">
-            Ask about practice sessions, revision and doubt solving.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Student Progress</h3>
-          <p class="muted">
-            Enquire about attendance, tests and progress updates.
-          </p>
-        </article>
-      </div>
-    </section>
+<section class="strip">
+<div class="container strip-inner">
+<div><strong>Standards 7–10</strong><br><span>School learning</span></div>
+<div><strong>Standards 11–12</strong><br><span>Science stream</span></div>
+<div><strong>CBSE &amp; GSEB</strong><br><span>Board pathways</span></div>
+<div><strong>JEE · NEET · NDA</strong><br><span>Entrance preparation</span></div>
+</div>
+</section>
 
-    <section class="content" id="admissions">
-      <div class="tag">ADMISSIONS</div>
-      <h2>Find the right class for you.</h2>
-      <p class="muted">
-        Batch availability, timings, fees and admission requirements
-        should be confirmed directly with the institute.
-      </p>
-      <a class="button" href="tel:+918758787474">Call for Details</a>
-    </section>
+<section class="section container" id="programs">
+<div class="section-head">
+<div class="eyebrow">Learning pathways</div>
+<h2>Build your next chapter.</h2>
+<p class="lead">Explore the learning options at Creative Concepts Classes. Contact the institute to confirm current batches and program availability.</p>
+</div>
+<div class="grid">
+<article class="card">
+<div class="card-no">01 / SCHOOL</div>
+<h3>Standard 7–10</h3>
+<p>Build a strong academic foundation and develop a clearer understanding of school concepts.</p>
+<a class="text-link" href="programs.html">Explore programs →</a>
+</article>
+<article class="card">
+<div class="card-no">02 / SCIENCE</div>
+<h3>Standard 11–12 Science</h3>
+<p>Learning support for students pursuing the Science stream and planning their next academic step.</p>
+<a class="text-link" href="programs.html">Explore programs →</a>
+</article>
+<article class="card">
+<div class="card-no">03 / BOARDS</div>
+<h3>CBSE &amp; GSEB</h3>
+<p>Learning pathways for students studying under CBSE and Gujarat Board curricula.</p>
+<a class="text-link" href="programs.html">Explore programs →</a>
+</article>
+<article class="card">
+<div class="card-no">04 / ENGINEERING</div>
+<h3>JEE Preparation</h3>
+<p>Preparation pathway for students aiming for engineering entrance examinations.</p>
+<a class="text-link" href="programs.html">Explore programs →</a>
+</article>
+<article class="card">
+<div class="card-no">05 / MEDICAL</div>
+<h3>NEET &amp; Re-NEET</h3>
+<p>Preparation pathway for students working towards medical entrance examinations.</p>
+<a class="text-link" href="programs.html">Explore programs →</a>
+</article>
+<article class="card">
+<div class="card-no">06 / DEFENCE</div>
+<h3>NDA Preparation</h3>
+<p>Learning pathway for students interested in the National Defence Academy entrance examination.</p>
+<a class="text-link" href="programs.html">Explore programs →</a>
+</article>
+</div>
+</section>
 
-    <section class="content contact" id="contact">
-      <div class="tag">GET IN TOUCH</div>
-      <h2>Contact Creative Concept</h2>
-      <p class="muted">
-        For admissions, fees, payments and administrative enquiries,
-        contact the institute owner.
-      </p>
-      <p><strong>Owner:</strong> Madhav Rajde</p>
-      <p><strong>Institute:</strong> Creative Concept</p>
-      <p>
-        <strong>Phone:</strong><br>
-        <a class="phone" href="tel:+918758787474">
-          +91 87587 87474
-        </a>
-      </p>
-    </section>
-  </main>
+<section class="section approach" id="approach">
+<div class="container approach-grid">
+<div>
+<div class="eyebrow">The philosophy</div>
+<p class="quote">“Strive for excellence.” Learning is about more than remembering answers.</p>
+<p class="lead">Creative Concepts Classes promotes a creative and thoughtful approach to studies and life.</p>
+</div>
+<div class="features">
+<div class="feature"><span class="dot"></span><div><h3>Understand concepts</h3><p>Focus on understanding ideas, not only memorising information.</p></div></div>
+<div class="feature"><span class="dot"></span><div><h3>Think creatively</h3><p>Approach learning with curiosity and an open mind.</p></div></div>
+<div class="feature"><span class="dot"></span><div><h3>Prepare for the future</h3><p>Work towards academic goals and the next stage of learning.</p></div></div>
+</div>
+</div>
+</section>
 
-  <footer>
-    © 2026 Creative Concept. All rights reserved.<br>
-    Please confirm current fees, timings and course details with the institute.
-  </footer>
+<section class="cta container">
+<div class="cta-box">
+<div>
+<h2>Ready to take the next step?</h2>
+<p>Send an enquiry to learn more about admissions and current programs.</p>
+</div>
+<a class="button" href="admissions.html">Admission enquiries ↗</a>
+</div>
+</section>
+
+<section class="section container" id="contact">
+<div class="section-head">
+<div class="eyebrow">Get in touch</div>
+<h2>Let’s connect.</h2>
+<p class="lead">Contact Creative Concepts Classes by Bindi Thacker in Bhuj, Gujarat.</p>
+</div>
+<div class="contact-grid">
+<div>
+<div class="contact-item"><strong>Visit the institute</strong><p>5-B, above Dabeli, opposite Viram Hotel, Banker’s Colony, Bhuj, Gujarat 370001.</p><p><a href="https://www.google.com/maps/search/?api=1&query=Creative+Concepts+Classes+Bankers+Colony+Bhuj" target="_blank" rel="noopener noreferrer">Open in Google Maps ↗</a></p></div>
+<div class="contact-item"><strong>Phone</strong><p>Number currently listed: +91 98255 53378. Please verify with the institute.</p><p><a href="tel:+919825553378">Call the institute</a></p></div>
+</div>
+<div>
+<div class="contact-item"><strong>Instagram</strong><p><a href="https://www.instagram.com/creativeconceptbhuj/" target="_blank" rel="noopener noreferrer">@creativeconceptbhuj ↗</a></p></div>
+<div class="contact-item"><strong>Admissions</strong><p>Submit an enquiry using the admission form.</p><p><a href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener noreferrer">Open admission form ↗</a></p></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="footer-inner">
+<span>© <span id="year"></span> Creative Concepts Classes by Bindi Thacker</span>
+<span>Bhuj, Gujarat · Strive For Excellence</span>
+</div>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
