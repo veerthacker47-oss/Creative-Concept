@@ -2,227 +2,379 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#172b4d">
-<meta name="description" content="Creative Concepts Classes by Bindi Thacker in Bhuj, Gujarat. Explore school learning, Science, board and entrance exam preparation programs.">
-<title>Creative Concepts Classes | Learn Beyond Limits</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#142a4a">
+<meta name="description" content="Creative Concepts Classes by Bindi Thacker, Bhuj. Explore school learning, Science and entrance exam preparation.">
+<title>Creative Concepts Classes — Think Beyond</title>
 <style>
-:root{--navy:#172b4d;--ink:#222b38;--muted:#687386;--cream:#faf8f3;--orange:#ef9c63;--line:#e8e3da;--white:#fff}
+:root{
+ --navy:#142a4a;--navy2:#203d63;--paper:#faf8f2;
+ --white:#fff;--ink:#202a38;--muted:#737b87;
+ --line:#e8e4da;--orange:#f1a06c;--mint:#b9d9c7;
+ --yellow:#f4d879;--lavender:#d8cafa;
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+html{scroll-behavior:smooth;scroll-padding-top:95px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
 a{color:inherit}
-header{position:sticky;top:0;z-index:10;background:rgba(250,248,243,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav{max-width:1180px;margin:auto;padding:15px 6%;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy);font-weight:800;font-size:16px;line-height:1.25}
-.mark{width:42px;height:42px;border-radius:50%;background:var(--navy);color:white;display:grid;place-items:center;font-size:15px;letter-spacing:1px;flex-shrink:0}
-nav{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-nav a{font-size:13px;text-decoration:none;color:var(--muted)}
-nav a:hover{color:var(--navy)}
-nav .nav-cta{background:var(--navy);color:white;padding:10px 14px;border-radius:8px}
-section{scroll-margin-top:85px}
-.container{max-width:1180px;margin:auto;padding-left:6%;padding-right:6%}
-.hero{padding-top:78px;padding-bottom:80px;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:50px}
-.eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#b66b37}
+button,a{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+.wrap{width:min(1180px,88%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(250,248,242,.93);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.nav{min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--navy);font-weight:900;font-size:13px;line-height:1.2;letter-spacing:.5px}
+.brandmark{width:43px;height:43px;border-radius:15px;background:var(--navy);color:white;display:grid;place-items:center;font-size:16px;letter-spacing:1px}
+.navlinks{display:flex;align-items:center;gap:24px}
+.navlinks a{font-size:13px;text-decoration:none;color:var(--muted);font-weight:700}
+.navlinks a:hover{color:var(--navy)}
+.navlinks .navbutton{background:var(--navy);color:white;padding:12px 17px;border-radius:8px}
+.menu-button{display:none;background:transparent;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--navy);font-weight:700}
+.hero{padding-top:74px;padding-bottom:78px;display:grid;grid-template-columns:1.03fr .97fr;gap:45px;align-items:center}
+.kicker{font-size:11px;letter-spacing:2.5px;font-weight:900;text-transform:uppercase;color:#a85d31;display:flex;align-items:center;gap:10px}
+.kicker:before{content:"";width:26px;height:2px;background:var(--orange)}
 h1,h2,h3,p{margin-top:0}
-h1{font-size:clamp(42px,6.6vw,76px);line-height:1.02;letter-spacing:-3px;color:var(--navy);margin:17px 0 22px}
-h1 span{color:#c77c48}
-.hero-copy{font-size:18px;max-width:610px;color:var(--muted)}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.button{display:inline-block;text-decoration:none;font-size:14px;font-weight:700;padding:14px 19px;border-radius:9px;border:1px solid var(--navy);transition:transform .2s}
-.button:hover{transform:translateY(-2px)}
-.primary{background:var(--navy);color:white}
-.secondary{color:var(--navy)}
-.hero-art{min-height:360px;border-radius:28px;background:#eae6dc;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:30px}
-.orbit{width:250px;height:250px;border:1px solid #c8c1b4;border-radius:50%;position:absolute}
-.orbit.two{width:320px;height:320px}
-.orbit.three{width:390px;height:390px}
-.core{position:relative;z-index:1;width:170px;height:170px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;text-align:center;font-size:24px;font-weight:800;line-height:1.2;box-shadow:0 20px 50px #172b4d30}
-.float{position:absolute;z-index:2;padding:12px 15px;background:white;border-radius:12px;box-shadow:0 8px 25px #172b4d12;font-size:12px;font-weight:800;color:var(--navy)}
-.f1{top:35px;left:22px}.f2{right:18px;top:110px}.f3{bottom:35px;left:35px}.f4{bottom:55px;right:22px}
-.strip{background:var(--navy);color:white}
-.strip-inner{padding-top:25px;padding-bottom:25px;display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap}
-.strip strong{font-size:14px}.strip span{color:#c8d0de;font-size:12px}
-.section{padding-top:85px;padding-bottom:85px}
-.section-head{max-width:650px;margin-bottom:35px}
-h2{font-size:clamp(30px,4vw,46px);line-height:1.12;letter-spacing:-1.5px;color:var(--navy);margin-bottom:15px}
-.lead{color:var(--muted);font-size:16px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
-.card{padding:25px;background:white;border:1px solid var(--line);border-radius:17px;min-width:0}
-.card-no{font-size:12px;letter-spacing:1px;font-weight:800;color:#b66b37}
-.card h3{font-size:20px;line-height:1.3;color:var(--navy);margin:13px 0 10px}
-.card p{font-size:14px;color:var(--muted);margin-bottom:0}
-.text-link{display:inline-block;margin-top:18px;color:var(--navy);font-size:13px;font-weight:800;text-decoration:none}
-.approach{background:#f0ece3}
-.approach-grid{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
-.quote{font-size:clamp(24px,3.5vw,39px);line-height:1.25;color:var(--navy);letter-spacing:-1px}
-.features{display:grid;gap:13px}
-.feature{display:flex;gap:14px;padding:17px;background:#fff;border:1px solid var(--line);border-radius:13px}
-.dot{width:10px;height:10px;margin-top:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
-.feature h3{font-size:16px;margin:0 0 4px;color:var(--navy)}
-.feature p{font-size:13px;color:var(--muted);margin:0}
-.cta{padding-top:65px;padding-bottom:65px}
-.cta-box{background:var(--navy);color:white;border-radius:24px;padding:clamp(28px,5vw,55px);display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
-.cta-box h2{color:white;max-width:600px;margin-bottom:12px}
-.cta-box p{color:#d5dbea;margin:0;max-width:600px}
-.cta-box .button{background:white;color:var(--navy);border-color:white;white-space:nowrap}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-.contact-item{padding:20px 0;border-bottom:1px solid var(--line)}
-.contact-item strong{display:block;color:var(--navy);margin-bottom:5px}
-.contact-item p{color:var(--muted);margin:0;font-size:14px;overflow-wrap:anywhere}
-.contact-item a{color:var(--navy);font-weight:700}
-footer{border-top:1px solid var(--line);padding:25px 6%;color:var(--muted);font-size:12px}
-.footer-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:55px;gap:35px}.hero-art{min-height:310px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.approach-grid{grid-template-columns:1fr;gap:25px}}
-@media(max-width:560px){.nav{align-items:flex-start;flex-direction:column;gap:13px}nav{gap:14px}nav a{font-size:12px}.hero{padding-top:42px;padding-bottom:50px}h1{letter-spacing:-2px}.hero-art{min-height:275px;padding:20px}.core{width:130px;height:130px;font-size:21px}.orbit{width:190px;height:190px}.orbit.two{width:245px;height:245px}.orbit.three{width:300px;height:300px}.f1{top:18px;left:10px}.f2{right:8px;top:75px}.f3{bottom:20px;left:10px}.f4{bottom:30px;right:8px}.float{font-size:10px;padding:9px}.grid{grid-template-columns:1fr}.section{padding-top:60px;padding-bottom:60px}.contact-grid{grid-template-columns:1fr}.strip-inner{gap:12px}.strip-inner>div{min-width:40%}}
+h1{font-size:clamp(44px,6.8vw,82px);letter-spacing:-5px;line-height:.99;color:var(--navy);margin:22px 0}
+h1 em{font-family:Georgia,serif;font-weight:400;color:#b66d42}
+.hero-copy{font-size:17px;max-width:480px;color:var(--muted);line-height:1.8}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 18px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:800;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--navy);color:white}
+.btn-light{border:1px solid #d7d2c7;color:var(--navy)}
+.micro{margin-top:22px;color:var(--muted);font-size:11px;letter-spacing:.4px}
+.visual{min-height:420px;background:#e9e4d8;border-radius:32px;position:relative;overflow:hidden;display:grid;place-items:center;isolation:isolate}
+.visual:before{content:"";position:absolute;width:370px;height:370px;border:1px solid #c8c1b3;border-radius:50%}
+.visual:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #c8c1b3;border-radius:50%}
+.sun{position:absolute;width:150px;height:150px;border-radius:50%;background:var(--orange);right:11%;top:10%;opacity:.9}
+.shape{position:absolute;width:120px;height:120px;background:var(--mint);border-radius:42% 58% 63% 37% / 42% 39% 61% 58%;left:9%;bottom:10%;animation:drift 7s ease-in-out infinite}
+.shape2{position:absolute;width:74px;height:74px;background:var(--lavender);border-radius:24px;transform:rotate(24deg);right:12%;bottom:14%;animation:drift 8s ease-in-out infinite reverse}
+.centerpiece{width:205px;height:205px;border-radius:50%;background:var(--navy);color:white;z-index:2;display:grid;place-content:center;text-align:center;box-shadow:0 20px 55px #142a4a25;animation:float 5s ease-in-out infinite}
+.centerpiece small{font-size:10px;letter-spacing:3px;color:var(--mint);font-weight:800}
+.centerpiece strong{font-family:Georgia,serif;font-size:31px;font-weight:400;line-height:1.1;margin-top:8px}
+.pill{position:absolute;z-index:4;background:white;border:1px solid #eee8dd;border-radius:11px;padding:10px 13px;box-shadow:0 8px 25px #142a4a0d;font-size:11px;font-weight:800;color:var(--navy)}
+.pill span{margin-right:5px}
+.pill-a{top:12%;left:7%}.pill-b{top:34%;right:5%}.pill-c{bottom:17%;left:7%}.pill-d{bottom:8%;right:22%}
+.visual-note{position:absolute;top:7%;right:8%;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#6c6d67}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(7deg)}}
+.ticker{background:var(--navy);color:white}
+.ticker-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding-top:23px;padding-bottom:23px}
+.ticker-item{display:flex;flex-direction:column;gap:2px}
+.ticker-item strong{font-size:13px}.ticker-item span{font-size:11px;color:#c8d1df}
+.section{padding-top:88px;padding-bottom:88px}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:32px}
+.section-heading>div{max-width:650px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;font-weight:900;color:#a85d31}
+h2{font-size:clamp(32px,4.5vw,52px);letter-spacing:-2px;line-height:1.08;color:var(--navy);margin:12px 0}
+.subcopy{max-width:580px;color:var(--muted);font-size:15px}
+.textlink{color:var(--navy);font-weight:800;font-size:12px;text-decoration:none;white-space:nowrap}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filter{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:99px;padding:10px 15px;font-size:12px;font-weight:800;cursor:pointer}
+.filter[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:white}
+.program-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.program{min-height:220px;padding:23px;border:1px solid var(--line);border-radius:17px;background:white;display:flex;flex-direction:column;align-items:flex-start;transition:transform .2s,border-color .2s}
+.program:hover{transform:translateY(-4px);border-color:#c8c0b1}
+.program[hidden]{display:none}
+.program-top{display:flex;align-items:center;justify-content:space-between;width:100%}
+.program-num{font-size:10px;letter-spacing:1px;color:var(--muted);font-weight:800}
+.program-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:19px}
+.ic-orange{background:#fae4d3}.ic-mint{background:#dcebe1}.ic-yellow{background:#f8edc5}.ic-lavender{background:#eae3fa}
+.program h3{font-size:20px;color:var(--navy);line-height:1.25;margin:19px 0 8px}
+.program p{font-size:13px;color:var(--muted);margin-bottom:18px}
+.program a{margin-top:auto;color:var(--navy);text-decoration:none;font-size:12px;font-weight:900}
+.story{background:#eeeae0}
+.story-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:60px;align-items:center}
+.manifesto{font-family:Georgia,serif;font-size:clamp(32px,4vw,49px);line-height:1.17;letter-spacing:-1.5px;color:var(--navy)}
+.manifesto em{color:#b66d42;font-weight:400}
+.story-copy{color:var(--muted);font-size:15px}
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:25px}
+.principle{background:rgba(255,255,255,.7);border:1px solid #e2ddd1;padding:17px;border-radius:12px}
+.principle strong{display:block;color:var(--navy);font-size:13px;margin-bottom:4px}
+.principle span{font-size:11px;color:var(--muted)}
+.admissions{padding-top:70px;padding-bottom:70px}
+.admission-box{position:relative;overflow:hidden;background:var(--navy);border-radius:25px;color:white;padding:clamp(28px,5.5vw,60px);display:flex;align-items:center;justify-content:space-between;gap:30px}
+.admission-box:after{content:"";position:absolute;width:240px;height:240px;border:1px solid #ffffff20;border-radius:50%;right:22%;top:-140px;box-shadow:0 0 0 35px #ffffff08,0 0 0 70px #ffffff05}
+.admission-copy{max-width:620px;position:relative;z-index:1}
+.admission-box .eyebrow{color:var(--mint)}
+.admission-box h2{color:white}
+.admission-box p{color:#d4dceb;font-size:14px;margin-bottom:0}
+.admission-box .btn{position:relative;z-index:2;background:var(--white);color:var(--navy);white-space:nowrap}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.contact-card{padding:25px;border:1px solid var(--line);border-radius:17px;background:white}
+.contact-card h3{color:var(--navy);font-size:18px;margin:10px 0}
+.contact-card p{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.contact-card a{color:var(--navy);font-size:13px;font-weight:800}
+.contact-label{font-size:10px;letter-spacing:2px;color:#a85d31;text-transform:uppercase;font-weight:900}
+.contact-list{display:grid;gap:0}
+.contact-row{padding:16px 0;border-bottom:1px solid var(--line)}
+.contact-row:last-child{border-bottom:0}
+.contact-row strong{display:block;color:var(--navy);font-size:13px}
+.contact-row span{font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:25px 0}
+.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:11px}
+.footer-brand{color:var(--navy);font-weight:900}
+.reveal{opacity:0;transform:translateY(15px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+@media(max-width:850px){
+ .hero{grid-template-columns:1fr;gap:35px;padding-top:52px}
+ .visual{min-height:370px}
+ .story-grid{grid-template-columns:1fr;gap:20px}
+ .program-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .section-heading{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:600px){
+ .wrap{width:90%}
+ .nav{padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+ .brandmark{width:38px;height:38px;border-radius:12px}
+ .menu-button{display:block;margin-left:auto}
+ .navlinks{display:none;width:100%;padding:8px 0 6px;flex-direction:column;align-items:stretch;gap:0}
+ .navlinks.open{display:flex}
+ .navlinks a{padding:12px 4px;border-top:1px solid var(--line)}
+ .navlinks .navbutton{text-align:center;margin-top:8px}
+ h1{font-size:clamp(44px,13vw,66px);letter-spacing:-3px}
+ .hero{padding-top:42px;padding-bottom:48px}
+ .hero-copy{font-size:15px}
+ .visual{min-height:300px;border-radius:22px}
+ .visual:before{width:280px;height:280px}
+ .visual:after{width:215px;height:215px}
+ .centerpiece{width:155px;height:155px}
+ .centerpiece strong{font-size:25px}
+ .sun{width:100px;height:100px}
+ .shape{width:80px;height:80px}
+ .shape2{width:55px;height:55px}
+ .pill{font-size:9px;padding:8px 9px}
+ .pill-a{top:12%;left:4%}.pill-b{right:3%;top:36%}.pill-c{bottom:16%;left:4%}.pill-d{bottom:7%;right:15%}
+ .visual-note{font-size:8px;right:5%}
+ .ticker-inner{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ .section{padding-top:60px;padding-bottom:60px}
+ .program-grid{grid-template-columns:1fr}
+ .program{min-height:195px}
+ .principles{grid-template-columns:1fr 1fr}
+ .admission-box{align-items:flex-start;flex-direction:column}
+ .contact-grid{grid-template-columns:1fr}
+ .footer-inner{flex-direction:column}
+}
 </style>
 </head>
 <body>
-
 <header>
-<div class="nav">
-<a class="brand" href="index.html">
-<span class="mark">CC</span>
+<div class="wrap nav">
+<a class="brand" href="index.html" aria-label="Creative Concepts Classes home">
+<span class="brandmark">CC</span>
 <span>CREATIVE CONCEPTS<br>CLASSES</span>
 </a>
-<nav aria-label="Main navigation">
+<button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
+<nav class="navlinks" id="navLinks" aria-label="Main navigation">
 <a href="#programs">Programs</a>
 <a href="#approach">Our approach</a>
 <a href="#contact">Contact</a>
-<a class="nav-cta" href="admissions.html">Enquire now ↗</a>
+<a class="navbutton" href="admissions.html">Admission enquiry ↗</a>
 </nav>
 </div>
 </header>
 
 <main>
-<section class="hero container">
-<div>
-<div class="eyebrow">Creative Concepts Classes · Bhuj</div>
-<h1>Think beyond.<br><span>Learn creatively.</span></h1>
+<section class="wrap hero">
+<div class="reveal">
+<div class="kicker">Creative Concepts Classes · Bhuj</div>
+<h1>Think beyond.<br><em>Become more.</em></h1>
 <p class="hero-copy">A creative, psychological and amazing approach to not just studies, but towards life too.</p>
 <div class="actions">
-<a class="button primary" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener noreferrer">Explore admissions ↗</a>
-<a class="button secondary" href="#programs">Discover our programs ↓</a>
+<a class="btn btn-dark" href="admissions.html">Begin your journey <span aria-hidden="true">↗</span></a>
+<a class="btn btn-light" href="#programs">Find your pathway ↓</a>
 </div>
+<p class="micro">SCHOOL LEARNING · SCIENCE · ENTRANCE PREPARATION</p>
 </div>
-<div class="hero-art" aria-label="Creative learning illustration">
-<div class="orbit"></div><div class="orbit two"></div><div class="orbit three"></div>
-<div class="core">STRIVE<br>FOR<br>EXCELLENCE</div>
-<div class="float f1">Curiosity</div>
-<div class="float f2">Concepts</div>
-<div class="float f3">Confidence</div>
-<div class="float f4">Growth</div>
+
+<div class="visual reveal" role="img" aria-label="Abstract illustration representing curiosity, concepts, confidence and growth">
+<div class="visual-note">A different way to learn</div>
+<div class="sun"></div>
+<div class="shape"></div>
+<div class="shape2"></div>
+<div class="centerpiece"><small>STRIVE FOR</small><strong>Excellence.</strong></div>
+<div class="pill pill-a"><span>✳</span> Curiosity</div>
+<div class="pill pill-b"><span>↗</span> Ideas</div>
+<div class="pill pill-c"><span>✦</span> Confidence</div>
+<div class="pill pill-d"><span>◎</span> Growth</div>
 </div>
 </section>
 
-<section class="strip">
-<div class="container strip-inner">
-<div><strong>Standards 7–10</strong><br><span>School learning</span></div>
-<div><strong>Standards 11–12</strong><br><span>Science stream</span></div>
-<div><strong>CBSE &amp; GSEB</strong><br><span>Board pathways</span></div>
-<div><strong>JEE · NEET · NDA</strong><br><span>Entrance preparation</span></div>
+<section class="ticker">
+<div class="wrap ticker-inner">
+<div class="ticker-item"><strong>Standards 7–10</strong><span>School learning</span></div>
+<div class="ticker-item"><strong>Standards 11–12</strong><span>Science stream</span></div>
+<div class="ticker-item"><strong>CBSE &amp; GSEB</strong><span>Board pathways</span></div>
+<div class="ticker-item"><strong>JEE · NEET · NDA</strong><span>Entrance preparation</span></div>
 </div>
 </section>
 
-<section class="section container" id="programs">
-<div class="section-head">
-<div class="eyebrow">Learning pathways</div>
-<h2>Build your next chapter.</h2>
-<p class="lead">Explore the learning options at Creative Concepts Classes. Contact the institute to confirm current batches and program availability.</p>
+<section class="wrap section" id="programs">
+<div class="section-heading reveal">
+<div>
+<div class="eyebrow">Choose your direction</div>
+<h2>Different goals.<br>One place to begin.</h2>
+<p class="subcopy">Explore the learning pathways at Creative Concepts Classes. Select a category to find the programs relevant to your goals.</p>
 </div>
-<div class="grid">
-<article class="card">
-<div class="card-no">01 / SCHOOL</div>
-<h3>Standard 7–10</h3>
-<p>Build a strong academic foundation and develop a clearer understanding of school concepts.</p>
-<a class="text-link" href="programs.html">Explore programs →</a>
+<a class="textlink" href="programs.html">View all programs ↗</a>
+</div>
+
+<div class="filters reveal" aria-label="Filter programs">
+<button class="filter" type="button" data-filter="all" aria-pressed="true">All programs</button>
+<button class="filter" type="button" data-filter="school" aria-pressed="false">School</button>
+<button class="filter" type="button" data-filter="science" aria-pressed="false">Science</button>
+<button class="filter" type="button" data-filter="entrance" aria-pressed="false">Entrance exams</button>
+</div>
+
+<div class="program-grid">
+<article class="program reveal" data-category="school">
+<div class="program-top"><span class="program-num">PATHWAY / 01</span><span class="program-icon ic-orange">✳</span></div>
+<h3>Standards 7–10</h3>
+<p>Build a foundation in school subjects, strengthen understanding and prepare for the next stage.</p>
+<a href="programs.html">Explore pathway ↗</a>
 </article>
-<article class="card">
-<div class="card-no">02 / SCIENCE</div>
-<h3>Standard 11–12 Science</h3>
-<p>Learning support for students pursuing the Science stream and planning their next academic step.</p>
-<a class="text-link" href="programs.html">Explore programs →</a>
+<article class="program reveal" data-category="science">
+<div class="program-top"><span class="program-num">PATHWAY / 02</span><span class="program-icon ic-mint">⌁</span></div>
+<h3>Standards 11–12 Science</h3>
+<p>Learning support for students pursuing the Science stream and their academic goals.</p>
+<a href="programs.html">Explore pathway ↗</a>
 </article>
-<article class="card">
-<div class="card-no">03 / BOARDS</div>
+<article class="program reveal" data-category="school">
+<div class="program-top"><span class="program-num">PATHWAY / 03</span><span class="program-icon ic-yellow">◈</span></div>
 <h3>CBSE &amp; GSEB</h3>
-<p>Learning pathways for students studying under CBSE and Gujarat Board curricula.</p>
-<a class="text-link" href="programs.html">Explore programs →</a>
+<p>Learning pathways for students following CBSE or Gujarat Board curricula.</p>
+<a href="programs.html">Explore pathway ↗</a>
 </article>
-<article class="card">
-<div class="card-no">04 / ENGINEERING</div>
-<h3>JEE Preparation</h3>
-<p>Preparation pathway for students aiming for engineering entrance examinations.</p>
-<a class="text-link" href="programs.html">Explore programs →</a>
+<article class="program reveal" data-category="entrance">
+<div class="program-top"><span class="program-num">PATHWAY / 04</span><span class="program-icon ic-lavender">↗</span></div>
+<h3>JEE preparation</h3>
+<p>A pathway for students preparing for engineering entrance examinations.</p>
+<a href="programs.html">Explore pathway ↗</a>
 </article>
-<article class="card">
-<div class="card-no">05 / MEDICAL</div>
+<article class="program reveal" data-category="entrance">
+<div class="program-top"><span class="program-num">PATHWAY / 05</span><span class="program-icon ic-orange">✦</span></div>
 <h3>NEET &amp; Re-NEET</h3>
-<p>Preparation pathway for students working towards medical entrance examinations.</p>
-<a class="text-link" href="programs.html">Explore programs →</a>
+<p>Preparation pathways for students working towards medical entrance examinations.</p>
+<a href="programs.html">Explore pathway ↗</a>
 </article>
-<article class="card">
-<div class="card-no">06 / DEFENCE</div>
-<h3>NDA Preparation</h3>
-<p>Learning pathway for students interested in the National Defence Academy entrance examination.</p>
-<a class="text-link" href="programs.html">Explore programs →</a>
+<article class="program reveal" data-category="entrance">
+<div class="program-top"><span class="program-num">PATHWAY / 06</span><span class="program-icon ic-mint">◎</span></div>
+<h3>NDA preparation</h3>
+<p>A pathway for students interested in the National Defence Academy entrance examination.</p>
+<a href="programs.html">Explore pathway ↗</a>
 </article>
 </div>
+<p class="micro">Program availability, batches and schedules should be confirmed directly with the institute.</p>
 </section>
 
-<section class="section approach" id="approach">
-<div class="container approach-grid">
+<section class="story" id="approach">
+<div class="wrap section story-grid">
+<div class="reveal">
+<div class="eyebrow">The Creative Concepts philosophy</div>
+<p class="manifesto">Education should do more than fill a notebook. It should <em>change how you think.</em></p>
+</div>
+<div class="reveal">
+<p class="story-copy">Creative Concepts Classes by Bindi Thacker follows a creative, psychological and thoughtful approach to studies and life. The aim is to make learning meaningful—not simply another task to finish.</p>
+<div class="principles">
+<div class="principle"><strong>Understand</strong><span>Look beyond memorising.</span></div>
+<div class="principle"><strong>Question</strong><span>Make room for curiosity.</span></div>
+<div class="principle"><strong>Connect</strong><span>Relate ideas to life.</span></div>
+<div class="principle"><strong>Grow</strong><span>Keep moving forward.</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="wrap admissions">
+<div class="admission-box reveal">
+<div class="admission-copy">
+<div class="eyebrow">Your next chapter</div>
+<h2>Every big goal starts with a first step.</h2>
+<p>Explore admissions and enquire about current programs, batches and class details.</p>
+</div>
+<a class="btn" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener noreferrer">Open admission form ↗</a>
+</div>
+</section>
+
+<section class="wrap section" id="contact">
+<div class="section-heading reveal">
 <div>
-<div class="eyebrow">The philosophy</div>
-<p class="quote">“Strive for excellence.” Learning is about more than remembering answers.</p>
-<p class="lead">Creative Concepts Classes promotes a creative and thoughtful approach to studies and life.</p>
+<div class="eyebrow">Start a conversation</div>
+<h2>Come say hello.</h2>
+<p class="subcopy">For admissions, current program details and other enquiries, contact the institute directly.</p>
 </div>
-<div class="features">
-<div class="feature"><span class="dot"></span><div><h3>Understand concepts</h3><p>Focus on understanding ideas, not only memorising information.</p></div></div>
-<div class="feature"><span class="dot"></span><div><h3>Think creatively</h3><p>Approach learning with curiosity and an open mind.</p></div></div>
-<div class="feature"><span class="dot"></span><div><h3>Prepare for the future</h3><p>Work towards academic goals and the next stage of learning.</p></div></div>
-</div>
-</div>
-</section>
-
-<section class="cta container">
-<div class="cta-box">
-<div>
-<h2>Ready to take the next step?</h2>
-<p>Send an enquiry to learn more about admissions and current programs.</p>
-</div>
-<a class="button" href="admissions.html">Admission enquiries ↗</a>
-</div>
-</section>
-
-<section class="section container" id="contact">
-<div class="section-head">
-<div class="eyebrow">Get in touch</div>
-<h2>Let’s connect.</h2>
-<p class="lead">Contact Creative Concepts Classes by Bindi Thacker in Bhuj, Gujarat.</p>
 </div>
 <div class="contact-grid">
-<div>
-<div class="contact-item"><strong>Visit the institute</strong><p>5-B, above Dabeli, opposite Viram Hotel, Banker’s Colony, Bhuj, Gujarat 370001.</p><p><a href="https://www.google.com/maps/search/?api=1&query=Creative+Concepts+Classes+Bankers+Colony+Bhuj" target="_blank" rel="noopener noreferrer">Open in Google Maps ↗</a></p></div>
-<div class="contact-item"><strong>Phone</strong><p>Number currently listed: +91 98255 53378. Please verify with the institute.</p><p><a href="tel:+919825553378">Call the institute</a></p></div>
+<div class="contact-card reveal">
+<div class="contact-label">Find us</div>
+<h3>Visit Creative Concepts</h3>
+<p>5-B, above Dabeli, opposite Viram Hotel, Banker’s Colony, Bhuj, Gujarat 370001.</p>
+<a href="https://www.google.com/maps/search/?api=1&query=Creative+Concepts+Classes+Bankers+Colony+Bhuj" target="_blank" rel="noopener noreferrer">Get directions ↗</a>
 </div>
-<div>
-<div class="contact-item"><strong>Instagram</strong><p><a href="https://www.instagram.com/creativeconceptbhuj/" target="_blank" rel="noopener noreferrer">@creativeconceptbhuj ↗</a></p></div>
-<div class="contact-item"><strong>Admissions</strong><p>Submit an enquiry using the admission form.</p><p><a href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener noreferrer">Open admission form ↗</a></p></div>
+<div class="contact-card reveal">
+<div class="contact-label">Contact details</div>
+<div class="contact-list">
+<div class="contact-row"><strong>Phone</strong><span>Currently listed: +91 98255 53378</span><br><a href="tel:+919825553378">Call the institute ↗</a></div>
+<div class="contact-row"><strong>Instagram</strong><span>@creativeconceptbhuj</span><br><a href="https://www.instagram.com/creativeconceptbhuj/" target="_blank" rel="noopener noreferrer">Visit Instagram ↗</a></div>
+<div class="contact-row"><strong>Admissions</strong><span>Submit an enquiry online.</span><br><a href="admissions.html">Admission information ↗</a></div>
 </div>
 </div>
+</div>
+<p class="micro">Please verify the listed phone number with the institute before relying on it.</p>
 </section>
 </main>
 
 <footer>
-<div class="footer-inner">
-<span>© <span id="year"></span> Creative Concepts Classes by Bindi Thacker</span>
-<span>Bhuj, Gujarat · Strive For Excellence</span>
+<div class="wrap footer-inner">
+<span class="footer-brand">CREATIVE CONCEPTS CLASSES</span>
+<span>By Bindi Thacker · Bhuj, Gujarat</span>
+<span>Strive For Excellence.</span>
 </div>
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+
+menuButton.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuButton.textContent = isOpen ? "Close ×" : "Menu ☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.textContent = "Menu ☰";
+  });
+});
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    const category = button.dataset.filter;
+    document.querySelectorAll(".filter").forEach(item => {
+      item.setAttribute("aria-pressed", String(item === button));
+    });
+    document.querySelectorAll(".program").forEach(card => {
+      card.hidden = category !== "all" && card.dataset.category !== category;
+    });
+  });
+});
+
+if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.12});
+  document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+} else {
+  document.querySelectorAll(".reveal").forEach(element => element.classList.add("visible"));
+}
 </script>
 </body>
 </html>
