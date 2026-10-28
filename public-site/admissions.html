@@ -1,1 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101b2b">
+<meta name="description" content="Begin your admission enquiry at Creative Concepts Classes by Bindi Thacker, Bhuj, Gujarat.">
+<title>Admissions | Creative Concepts Classes</title>
+<style>
+:root{--navy:#101b2b;--navy2:#192a3e;--cream:#f6f3ec;--white:#fffdf8;--gold:#c7a66a;--muted:#aeb8c4;--ink:#172536;--line:rgba(255,255,255,.15)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1160px,90%);margin:auto}
+header{background:var(--navy);color:white;border-bottom:1px solid var(--line)}
+.nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.3px}
+.mark{height:43px;width:43px;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-family:Georgia,serif;font-size:19px}
+.brand small{display:block;font-size:10px;color:#c4cbd3;letter-spacing:2px;font-weight:400}
+.links{display:flex;gap:25px;align-items:center;font-size:13px}
+.links a{color:#d9dfe6}
+.links a:hover,.links a.active{color:var(--gold)}
+.nav-cta{border:1px solid var(--gold);padding:10px 15px;color:var(--gold)!important}
+.menu{display:none;background:none;border:1px solid #ffffff55;color:white;padding:8px 12px}
+.hero{background:var(--navy);color:white;padding:72px 0 80px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:380px;height:380px;border:1px solid #c7a66a30;border-radius:50%;right:-90px;top:-150px;box-shadow:0 0 0 45px #c7a66a08,0 0 0 90px #c7a66a06;pointer-events:none}
+.eyebrow{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+h1,h2,h3,p{margin-top:0}
+h1{font-family:Georgia,serif;font-size:clamp(42px,7vw,72px);font-weight:400;line-height:1.08;max-width:800px;margin:18px 0}
+h1 em{color:var(--gold);font-weight:400}
+.hero p{max-width:610px;color:#c4ccd5;font-size:16px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;justify-content:center;align-items:center;padding:13px 20px;font-size:13px;font-weight:700;border:1px solid transparent;transition:.2s;cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:#dfc18a;transform:translateY(-2px)}
+.btn-outline{border-color:#ffffff50;color:white}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+main{padding:65px 0 80px}
+.layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:55px;align-items:start}
+h2{font-family:Georgia,serif;font-size:clamp(31px,4vw,44px);font-weight:400;line-height:1.15;margin:14px 0 18px}
+.lead{color:#68727d;font-size:15px}
+.steps{margin-top:34px;border-top:1px solid #ddd8cd}
+.step{display:flex;gap:16px;padding:19px 0;border-bottom:1px solid #ddd8cd}
+.step-num{width:34px;height:34px;flex:0 0 34px;border:1px solid #c8b58e;color:#8b7040;display:grid;place-items:center;font-family:Georgia,serif}
+.step strong{display:block;font-size:14px;margin-bottom:4px}
+.step p{font-size:12px;color:#737c85;margin:0}
+.info{margin-top:30px;padding:23px;background:#eae5d9}
+.info strong{font-family:Georgia,serif;font-size:20px;font-weight:400}
+.info p{font-size:13px;color:#626d78;margin:8px 0 0}
+.form-card{background:var(--white);border:1px solid #e4dfd3;padding:clamp(23px,4vw,42px)}
+.form-card h2{font-size:32px;margin-top:9px}
+.form-card>p{font-size:13px;color:#68727d;margin-bottom:26px}
+.field{margin-bottom:18px}
+label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}
+input,select,textarea{width:100%;border:1px solid #d8d5cc;background:#fffefb;padding:13px 12px;color:var(--ink);font:inherit;font-size:14px;border-radius:0;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#9d7b43;box-shadow:0 0 0 2px #c7a66a24}
+textarea{min-height:105px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hint{font-size:11px;color:#777f87;margin-top:6px}
+.submit{width:100%;border:0;margin-top:4px}
+.form-foot{font-size:11px!important;line-height:1.6;color:#7a8188!important;margin:15px 0 0!important}
+.divider{display:flex;align-items:center;gap:12px;color:#858b91;font-size:11px;margin:22px 0}
+.divider:before,.divider:after{content:"";height:1px;background:#e1ddd3;flex:1}
+.google{display:flex;justify-content:center;align-items:center;width:100%;padding:13px;border:1px solid #d5d1c7;font-size:13px;font-weight:700;background:transparent}
+.google:hover{border-color:var(--gold)}
+.bottom{background:var(--navy);color:white;padding:56px 0}
+.bottom-inner{display:flex;justify-content:space-between;align-items:center;gap:25px}
+.bottom h2{margin:10px 0;font-size:clamp(28px,4vw,40px)}
+.bottom p{color:#bdc6d0;font-size:13px;margin:0}
+footer{background:#0b1420;color:#c1c8d1;padding:27px 0;font-size:12px}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--gold)}
+@media(max-width:850px){.layout{grid-template-columns:1fr;gap:38px}.steps{margin-top:25px}.info{margin-top:22px}}
+@media(max-width:600px){.nav{min-height:72px}.menu{display:block}.links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--navy2);padding:20px 5%;z-index:5;flex-direction:column;align-items:stretch}.links.open{display:flex}.links a{padding:8px 0}.nav-cta{text-align:center}.hero{padding:55px 0 62px}main{padding:45px 0 55px}.two{grid-template-columns:1fr;gap:0}.bottom-inner{align-items:flex-start;flex-direction:column}.bottom{padding:45px 0}}
+/* =====================================
+   PREMIUM ADMISSIONS PAGE DESIGN
+   ===================================== */
 
+:root {
+  --navy: #102448;
+  --navy2: #17345f;
+  --cream: #ffffff;
+  --white: #ffffff;
+  --gold: #c49a50;
+  --muted: #68748a;
+  --ink: #102448;
+  --line: #e5eaf2;
+}
+
+body {
+  background: #ffffff;
+  color: #263750;
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+}
+
+header {
+  background: rgba(255,255,255,.97);
+  color: #102448;
+  border-bottom: 1px solid #e5eaf2;
+  box-shadow: 0 4px 20px rgba(16,36,72,.04);
+}
+
+.brand { color: #102448; }
+
+.mark {
+  border: 1px solid #2457c5;
+  color: #2457c5;
+  border-radius: 12px;
+}
+
+.brand small { color: #68748a; }
+
+.links a { color: #52627a; }
+
+.links a:hover,
+.links a.active { color: #2457c5; }
+
+.nav-cta {
+  background: #2457c5;
+  color: #ffffff !important;
+  border: 1px solid #2457c5;
+  border-radius: 9px;
+  padding: 11px 17px;
+}
+
+.menu {
+  color: #102448;
+  border-color: #dce4f0;
+  border-radius: 8px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #f2f6ff, #ffffff 75%);
+  color: #102448;
+  padding: 82px 0 88px;
+}
+
+.hero:after {
+  border-color: #2457c51a;
+  box-shadow: 0 0 0 45px #2457c508,
+              0 0 0 90px #2457c505;
+}
+
+.eyebrow {
+  color: #2457c5;
+  letter-spacing: 2px;
+}
+
+h1, h2, h3 {
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+}
+
+h1 {
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+h1 em {
+  color: #2457c5;
+  font-style: normal;
+}
+
+.hero p { color: #68748a; }
+
+.btn {
+  border-radius: 9px;
+  padding: 14px 21px;
+}
+
+.btn-gold {
+  background: #2457c5;
+  color: #ffffff;
+}
+
+.btn-gold:hover {
+  background: #173f9a;
+}
+
+.btn-outline {
+  color: #2457c5;
+  border-color: #cbd8f1;
+}
+
+.btn-outline:hover {
+  color: #173f9a;
+  border-color: #2457c5;
+}
+
+main { background: #ffffff; }
+
+.layout { gap: 48px; }
+
+h2 {
+  color: #102448;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.lead { color: #68748a; }
+
+.steps {
+  border-color: #e5eaf2;
+}
+
+.step {
+  border-color: #e5eaf2;
+  padding: 22px 0;
+}
+
+.step-num {
+  border-color: #cbd8f1;
+  color: #2457c5;
+  border-radius: 10px;
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.step strong { color: #102448; }
+
+.step p { color: #68748a; }
+
+.info {
+  background: #f3f6fc;
+  border: 1px solid #e5eaf2;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.info strong {
+  color: #102448;
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-weight: 750;
+}
+
+.info p { color: #68748a; }
+
+.info a { color: #2457c5; }
+
+.form-card {
+  background: #ffffff;
+  border: 1px solid #e3eaf5;
+  border-radius: 20px;
+  padding: clamp(24px, 4vw, 42px);
+  box-shadow: 0 16px 45px rgba(16,36,72,.07);
+}
+
+.form-card h2 {
+  color: #102448;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.form-card > p { color: #68748a; }
+
+label {
+  color: #263750;
+  font-weight: 700;
+}
+
+input, select, textarea {
+  background: #fbfcff;
+  color: #102448;
+  border: 1px solid #dce4f0;
+  border-radius: 9px;
+  padding: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2457c5;
+  box-shadow: 0 0 0 3px rgba(36,87,197,.10);
+  outline: none;
+}
+
+.hint { color: #68748a; }
+
+.form-foot { color: #68748a !important; }
+
+.divider { color: #8a96a8; }
+
+.divider:before,
+.divider:after {
+  background: #e5eaf2;
+}
+
+.google {
+  border: 1px solid #dce4f0;
+  border-radius: 9px;
+  color: #2457c5;
+  background: #ffffff;
+  transition: .2s;
+}
+
+.google:hover {
+  background: #f3f6fc;
+  border-color: #2457c5;
+}
+
+.bottom {
+  background: linear-gradient(135deg, #102448, #193968);
+  color: #ffffff;
+}
+
+.bottom h2 { color: #ffffff; }
+
+.bottom p { color: #d1dced; }
+
+footer {
+  background: #0b1930;
+  color: #d1dced;
+}
+
+footer a { color: #e0c38a; }
+
+@media (max-width: 600px) {
+  .links {
+    background: #ffffff;
+    box-shadow: 0 12px 25px rgba(16,36,72,.10);
+  }
+
+  .links a { color: #52627a; }
+
+  .hero { padding: 58px 0 65px; }
+
+  h1 { letter-spacing: -1px; }
+
+  .form-card { border-radius: 16px; }
+
+  .bottom-inner { gap: 20px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="Creative Concepts Classes home">
+      <span class="mark">CC</span>
+      <span>CREATIVE CONCEPTS<small>CLASSES · BHUJ</small></span>
+    </a>
+    <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu ☰</button>
+    <nav class="links" id="links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="admissions.html" class="active">Admissions</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener">Enquire now ↗</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Admissions · Creative Concepts Classes</div>
+    <h1>Your next chapter<br>starts <em>with a step.</em></h1>
+    <p>Tell us what you want to achieve. Start an admission enquiry and connect with Creative Concepts Classes in Bhuj.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="#enquiry">Start an enquiry ↓</a>
+      <a class="btn btn-outline" href="programs.html">Explore programs ↗</a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="layout">
+    <section>
+      <div class="eyebrow">A simple process</div>
+      <h2>Take the first step.<br>We'll guide you from there.</h2>
+      <p class="lead">Choosing a program should feel clear, not complicated. Share a few details so the institute can help you understand the next steps.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div><strong>Tell us about yourself</strong><p>Share your class, board and area of interest.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div><strong>Discuss your goals</strong><p>Ask questions about suitable programs and preparation.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div><strong>Understand the next steps</strong><p>Connect with the institute for current admission details.</p></div>
+        </div>
+      </div>
+
+      <div class="info">
+        <strong>Have a question first?</strong>
+        <p>You can contact the institute before submitting an enquiry.</p>
+        <p><a href="contact.html"><b>View contact details →</b></a></p>
+      </div>
+    </section>
+
+    <section class="form-card" id="enquiry">
+      <div class="eyebrow">Begin here</div>
+      <h2>Admission enquiry</h2>
+      <p>Use the official enquiry form below to share your details with the institute.</p>
+
+      <div class="field">
+        <label for="student">Who is this enquiry for?</label>
+        <select id="student">
+          <option value="myself">Myself</option>
+          <option value="child">My child</option>
+          <option value="other">Someone else</option>
+        </select>
+      </div>
+
+      <div class="two">
+        <div class="field">
+          <label for="class">Class / Standard</label>
+          <select id="class">
+            <option value="">Choose standard</option>
+            <option>Standard 7</option><option>Standard 8</option>
+            <option>Standard 9</option><option>Standard 10</option>
+            <option>Standard 11 Science</option><option>Standard 12 Science</option>
+            <option>Competitive exam preparation</option><option>Need guidance</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="board">Board / Exam</label>
+          <select id="board">
+            <option value="">Choose board / exam</option>
+            <option>GSEB</option><option>CBSE</option><option>JEE</option>
+            <option>NEET / Re-NEET</option><option>NDA</option><option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="goal">What would you like help with? (Optional)</label>
+        <textarea id="goal" placeholder="Tell us about your learning goals or questions..."></textarea>
+      </div>
+
+      <a class="btn btn-gold submit" id="continue" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener">Continue to official enquiry form ↗</a>
+      <p class="form-foot">Your selections above are not submitted automatically. The official form opens separately; enter your personal details there and submit it to the institute.</p>
+
+      <div class="divider">Prefer the direct route?</div>
+      <a class="google" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener">Open admission form ↗</a>
+    </section>
+  </div>
+</main>
+
+<section class="bottom">
+  <div class="wrap bottom-inner">
+    <div>
+      <div class="eyebrow">Strive for excellence</div>
+      <h2>Let your learning move you forward.</h2>
+      <p>Creative Concepts Classes · Bhuj, Gujarat</p>
+    </div>
+    <a class="btn btn-gold" href="https://forms.gle/UbzQ4uCdG8cr3mf97" target="_blank" rel="noopener">Make an enquiry ↗</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© <span id="year"></span> Creative Concepts Classes · Bhuj, Gujarat</span>
+    <span><a href="https://www.instagram.com/creativeconceptbhuj/" target="_blank" rel="noopener">Instagram ↗</a> &nbsp;·&nbsp; <a href="contact.html">Contact</a></span>
+  </div>
+</footer>
+
+<script>
+const menu=document.getElementById('menu');
+const links=document.getElementById('links');
+menu.addEventListener('click',()=>{
+  const open=links.classList.toggle('open');
+  menu.setAttribute('aria-expanded',String(open));
+});
+links.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+  links.classList.remove('open');
+  menu.setAttribute('aria-expanded','false');
+}));
+document.getElementById('year').textContent=new Date().getFullYear();
+const continueLink=document.getElementById('continue');
+continueLink.addEventListener('click',()=>{
+  const details={
+    enquiryFor:document.getElementById('student').value,
+    class:document.getElementById('class').value,
+    board:document.getElementById('board').value,
+    goal:document.getElementById('goal').value.trim()
+  };
+  try{
+    sessionStorage.setItem('creativeConceptsEnquiry',JSON.stringify(details));
+  }catch(error){}
+});
+</script>
+</body>
+  </html>
